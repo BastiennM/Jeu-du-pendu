@@ -11,7 +11,7 @@ def show_jeu():
     jeu_window = tkinter.Toplevel(fenetre)
     jeu_window.title("Jeu du pendu")
 
-
+test
 # creer une première fenetre
 fenetre = Tk()
 
