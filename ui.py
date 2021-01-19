@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter
 
-#fonction
+#fonctionn
 
 
 def quitter():
