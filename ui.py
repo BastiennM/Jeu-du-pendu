@@ -129,26 +129,31 @@ frame = Frame(acceuil, bg='#ff5733')
 
 # TEXTE
 label_title = Label(frame, text="Bienvenue sur le jeu du", font=("Courrier", 30), bg="#FF5733", fg="white")
-label_title.pack(expand=YES)
+label_title.pack()
 label_subtitle = Label(frame, text="PENDU", font=("Courrier", 40), bg="#FF5733", fg="white")
-label_subtitle.pack(expand=YES)
+label_subtitle.pack()
 
 # BUTTONS
 menu_button = Button(frame, text="Jouer", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=show_jeu)
 menu_button.pack(pady="15", fill=X)
 menu_button = Button(frame, text="Top 10", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=show_top10)
 menu_button.pack(pady="15", fill=X)
-menu_button = Button(frame, text="Gestion des mots", height="2", font=("Arial", 15), bg="white", fg="#FF5733",
-                     command=show_gestion)
+menu_button = Button(frame, text="Gestion des mots", height="2", font=("Arial", 15), bg="white", fg="#FF5733",command=show_gestion)
 menu_button.pack(pady="15", fill=X)
 menu_button = Button(frame, text="Aide", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=show_aide)
 menu_button.pack(pady="15", fill=X)
 menu_button = Button(frame, text="Quitter", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=quitter)
 menu_button.pack(pady="15", fill=X)
 
+# CANVAS
+
+# canvas = Canvas(width=400, height=250, bg="blue")
+# canvas.pack(pady=20)
+#
+# photoacceuil = PhotoImage(file="img/acceuil.png")
+# canvas.create_image(200, 25, image=photoacceuil, anchor=N)
+
 # AFFICHAGE FRAME
 frame.pack(expand=YES)
 # AFFICHAGE PAGE ACCEUIL
 acceuil.mainloop()
-
-
