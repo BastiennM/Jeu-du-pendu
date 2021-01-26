@@ -23,10 +23,10 @@ def getpseudo():
     pseudoJeu = pseudo.get()
     print(pseudoJeu)
 
+
 # RECUPERATION DIFFICULTE
 def getdifficulte():
     difficulte = listedifficulte.get()
-    print(difficulte)
 
 
 # <======================================================== PAGE JEU ========================================================>
@@ -53,7 +53,7 @@ def show_jeu():
     pendumenu.add_cascade(label="Menu", menu=first_menu)
     jeu_window.config(menu=pendumenu)
 
-    #CREATION FRAME
+    # CREATION FRAME
 
     frame_topbanner = Frame(jeu_window, background="#ccccff")
     frame_timer = Frame(jeu_window, background="white")
@@ -61,15 +61,17 @@ def show_jeu():
     frame_mot = Frame(jeu_window, background="white")
     frame_clavier = Frame(jeu_window, background="#ccccff")
 
-
-    #AFFICHAGE FRAME
+    # AFFICHAGE FRAME
     frame_topbanner.place(x=40, y=20, width=940, height=65)
     frame_timer.place(x=448, y=115, width=130, height=68)
     frame_dessin.place(x=23, y=160, width=390, height=330)
     frame_mot.place(x=610, y=160, width=390, height=330)
     frame_clavier.place(x=40, y=555, width=940, height=170)
 
-
+    # TEXTE
+    label_pseudo = Label(frame_topbanner, text="A vous de jouer " + str(getpseudo()), font=("Arial", 30), bg="#ccccff",
+                         fg="black")
+    label_pseudo.pack()
 
 
 # <======================================================== PAGE JEU ========================================================>
@@ -186,7 +188,8 @@ pseudo.pack()
 
 # CHOIX DE DIFFICULTÉ
 optionsdifficulte = ["Facile", "Normal", "Difficile"]
-listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34, justify="center")
+listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34,
+                               justify="center")
 listedifficulte.current(0)
 listedifficulte.pack()
 
