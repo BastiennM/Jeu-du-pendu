@@ -1,8 +1,10 @@
 from tkinter import *
 import tkinter
+from tkinter import ttk
 
 
 # <======================================================== FONCTIONS ========================================================>
+# DEUX FONCTION
 def two_funcs(*funcs):
     def two_funcs(*args, **kwargs):
         for f in funcs:
@@ -11,8 +13,20 @@ def two_funcs(*funcs):
     return two_funcs
 
 
+# FONCTION QUITTER
 def quitter():
     acceuil.quit()
+
+
+# RECUPERATION PSEUDO
+def getpseudo():
+    pseudoJeu = pseudo.get()
+    print(pseudoJeu)
+
+# RECUPERATION DIFFICULTE
+def getdifficulte():
+    difficulte = listedifficulte.get()
+    print(difficulte)
 
 
 # <======================================================== PAGE JEU ========================================================>
@@ -24,6 +38,8 @@ def show_jeu():
     jeu_window.iconbitmap("img/logo.ico")
     jeu_window.config(background='#f9791e')
     acceuil.withdraw()
+    getpseudo()
+    getdifficulte()
 
     # Menu Page de jeu
     pendumenu = tkinter.Menu(jeu_window)
@@ -128,29 +144,47 @@ mainmenu.add_cascade(label="Menu", menu=first_menu)
 acceuil.config(menu=mainmenu)
 
 # CRÉATION FRAME
+frame_acceuilpseudo = Frame(acceuil, background="white")
+frame_acceuildifficulte = Frame(acceuil, background="white")
 frame_acceuiltop = Frame(acceuil, background="#ccccff")
 frame_acceuilbuttonplay = Frame(acceuil)
 frame_acceuilbuttontop10 = Frame(acceuil)
 frame_acceuilbuttongestionmot = Frame(acceuil)
 frame_acceuilbuttonaide = Frame(acceuil)
 
-# # TEXTE
-label_title = Label(frame_acceuiltop, text="Bienvenue sur le jeu du", font=("Courrier", 30), bg="#ccccff", fg="black")
+# TEXTE
+label_title = Label(frame_acceuiltop, text="Bienvenue sur le jeu du", font=("Arial", 30), bg="#ccccff", fg="black")
 label_title.pack()
 label_subtitle = Label(frame_acceuiltop, text="PENDU", font=("Courrier", 40), bg="#ccccff", fg="black")
 label_subtitle.pack()
 
+# ZONE DE SAISIE PSEDUO
+
+pseudo = Entry(frame_acceuilpseudo, width=50, background=None)
+pseudo.pack()
+
+# CHOIX DE DIFFICULTÉ
+optionsdifficulte = ["Facile", "Normal", "Difficile"]
+listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34, justify="center")
+listedifficulte.current(0)
+listedifficulte.pack()
+
 # BUTTONS
-menu_button = Button(frame_acceuilbuttonplay, borderwidth=0,text="Jouer",width=225, font=("Arial", 15), bg="white", fg="black",command=show_jeu)
-menu_button.pack()
-menu_button = Button(frame_acceuilbuttontop10, borderwidth=0,text="Top 10",width=225, font=("Arial", 15), bg="white", fg="black",command=show_top10)
-menu_button.pack()
-menu_button = Button(frame_acceuilbuttongestionmot, borderwidth=0,text="Gestion des mots",width=225, font=("Arial", 15), bg="white",fg="black", command=show_gestion)
-menu_button.pack()
-menu_button = Button(frame_acceuilbuttonaide,borderwidth=0, text="Aide",width=225,font=("Arial", 15), bg="white", fg="black",command=show_aide)
-menu_button.pack()
-menu_button = Button(frame_acceuiltop, borderwidth=0,text="Quitter",width=225,font=("Arial", 15), bg="white", fg="black",command=quitter)
-menu_button.pack()
+acceuil_button = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer", width=225, font=("Arial", 15), bg="white",
+                        fg="black", command=show_jeu)
+acceuil_button.pack()
+acceuil_button = Button(frame_acceuilbuttontop10, borderwidth=0, text="Top 10", width=225, font=("Arial", 15),
+                        bg="white", fg="black", command=show_top10)
+acceuil_button.pack()
+acceuil_button = Button(frame_acceuilbuttongestionmot, borderwidth=0, text="Gestion des mots", width=225,
+                        font=("Arial", 15), bg="white", fg="black", command=show_gestion)
+acceuil_button.pack()
+acceuil_button = Button(frame_acceuilbuttonaide, borderwidth=0, text="Aide", width=225, font=("Arial", 15), bg="white",
+                        fg="black", command=show_aide)
+acceuil_button.pack()
+acceuil_button = Button(frame_acceuiltop, borderwidth=0, text="Quitter", width=225, font=("Arial", 15), bg="white",
+                        fg="black", command=quitter)
+acceuil_button.pack()
 
 # AFFICHAGE FRAME
 frame_acceuiltop.place(x=30, y=10, width=960, height=115)
@@ -158,6 +192,8 @@ frame_acceuilbuttonplay.place(x=410, y=415, width=225, height=35)
 frame_acceuilbuttontop10.place(x=410, y=485, width=225, height=35)
 frame_acceuilbuttongestionmot.place(x=410, y=555, width=225, height=35)
 frame_acceuilbuttonaide.place(x=410, y=625, width=225, height=35)
+frame_acceuilpseudo.place(x=450, y=200, width=250)
+frame_acceuildifficulte.place(x=450, y=270, width=250)
 
 # AFFICHAGE PAGE ACCEUIL
 acceuil.mainloop()
