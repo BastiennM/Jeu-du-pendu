@@ -1,5 +1,5 @@
 # coding=utf-8
-from numpy import random
+import random
 
 # fichier de mots dans liste
 liste = []
