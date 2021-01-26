@@ -41,8 +41,6 @@ def show_jeu():
     label_jeu = Label(jeu_window, image=bg_jeu)
     label_jeu.place(x=0, y=0, relwidth=1, relheight=1)
     acceuil.withdraw()
-    getpseudo()
-    getdifficulte()
 
     # Menu Page de jeu
     pendumenu = tkinter.Menu(jeu_window)
@@ -54,6 +52,24 @@ def show_jeu():
     first_menu.add_command(label="Quitter", command=quitter)
     pendumenu.add_cascade(label="Menu", menu=first_menu)
     jeu_window.config(menu=pendumenu)
+
+    #CREATION FRAME
+
+    frame_topbanner = Frame(jeu_window, background="#ccccff")
+    frame_timer = Frame(jeu_window, background="white")
+    frame_dessin = Frame(jeu_window, background="white")
+    frame_mot = Frame(jeu_window, background="white")
+    frame_clavier = Frame(jeu_window, background="#ccccff")
+
+
+    #AFFICHAGE FRAME
+    frame_topbanner.place(x=40, y=20, width=940, height=65)
+    frame_timer.place(x=448, y=115, width=130, height=68)
+    frame_dessin.place(x=23, y=160, width=390, height=330)
+    frame_mot.place(x=610, y=160, width=390, height=330)
+    frame_clavier.place(x=40, y=555, width=940, height=170)
+
+
 
 
 # <======================================================== PAGE JEU ========================================================>
