@@ -1,37 +1,37 @@
-import random
+# coding=utf-8
+from numpy import random
 
+# fichier de mots dans liste
 liste = []
 fichier = open("liste.txt", "rt")
 for x in fichier:
     liste.append(x.rstrip("\n"))
 
 mot = liste[random.randint(0, len(liste) - 1)]
+# liste contenant les caractères du mot
 mot_l = list(mot)
+# liste des caractères cachés soit _
 mot_c = []
 for i in range(len(mot_l)):
     mot_c.append("_")
 
 
-def c(mot):
-    a = 0
-    for b in range(len(mot)):
-        if mot[b] == "_":
-            a += 1
-    return a
-
-
-essai = len(mot_l) + 10
+essai = 10
 
 print(" Trouvez le mot codé.")
+print('Vous commencez avec 48 points, essayez de les conservers')
 a = "_"
 while a in mot_c:
-    if essai > 0 and essai >= c(mot_c):
+    if essai > 0 :
         print("\n Il vous reste %d essais" % essai)
+        # lettre remplace _
         print(mot_c)
-        choix = input(" »»» ")
+        choix = input(">>>")
+        # majuscule
         b = choix.capitalize()
         if choix in mot_l or b in mot_l:
             for x in range(len(mot_l)):
+                # remplacer les _ par rapport au nombre de caractère
                 if choix == mot_l[x] or b == mot_l[x]:
                     mot_c[x] = mot_l[x]
         essai -= 1
