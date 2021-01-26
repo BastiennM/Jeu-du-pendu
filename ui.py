@@ -33,10 +33,13 @@ def getdifficulte():
 def show_jeu():
     jeu_window = tkinter.Toplevel(acceuil)
     jeu_window.title("Jeu du pendu")
-    jeu_window.geometry("1080x720")
-    jeu_window.minsize(480, 360)
+    jeu_window.geometry("1024x768")
+    jeu_window.minsize(1024, 768)
+    jeu_window.maxsize(1024, 768)
     jeu_window.iconbitmap("img/logo.ico")
-    jeu_window.config(background='#f9791e')
+    jeu_window.resizable(False, False)
+    label_jeu = Label(jeu_window, image=bg_jeu)
+    label_jeu.place(x=0, y=0, relwidth=1, relheight=1)
     acceuil.withdraw()
     getpseudo()
     getdifficulte()
@@ -64,7 +67,7 @@ def show_top10():
     top10_window.config(background='#f9791e')
     acceuil.withdraw()
 
-    # Menu Page de jeu
+    # Menu Page de top 10
     pendumenu = tkinter.Menu(top10_window)
     first_menu = tkinter.Menu(pendumenu, tearoff=0)
     first_menu.add_command(label="Acceuil", command=two_funcs(top10_window.destroy, acceuil.deiconify))
@@ -86,7 +89,7 @@ def show_gestion():
     gestion_window.config(background=' #f9791e')
     acceuil.withdraw()
 
-    # Menu Page de jeu
+    # Menu Page de gestions de mots
     pendumenu = tkinter.Menu(gestion_window)
     first_menu = tkinter.Menu(pendumenu, tearoff=0)
     first_menu.add_command(label="Acceuil", command=two_funcs(gestion_window.destroy, acceuil.deiconify))
@@ -108,7 +111,7 @@ def show_aide():
     aide_window.config(background='#f9791e')
     acceuil.withdraw()
 
-    # Menu Page de jeu
+    # Menu Page aide
     pendumenu = tkinter.Menu(aide_window)
     first_menu = tkinter.Menu(pendumenu, tearoff=0)
     first_menu.add_command(label="Acceuil", command=two_funcs(aide_window.destroy, acceuil.deiconify))
@@ -126,10 +129,12 @@ def show_aide():
 acceuil = Tk()
 acceuil.title("Page d'accueil")
 acceuil.geometry("1024x768")
-acceuil.minsize(480, 360)
+acceuil.minsize(1024, 768)
+acceuil.maxsize(1024, 768)
 acceuil.iconbitmap("img/logo.ico")
 acceuil.resizable(False, False)
 bg_acceuil = PhotoImage(file="img/acceuil.png")
+bg_jeu = PhotoImage(file="img/jeupendu.png")
 label_acceuil = Label(acceuil, image=bg_acceuil)
 label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
 
