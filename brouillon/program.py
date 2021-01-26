@@ -1,5 +1,5 @@
 # coding=utf-8
-from numpy import random
+import random
 
 # fichier de mots dans liste
 liste = []
@@ -16,13 +16,13 @@ for i in range(len(mot_l)):
     mot_c.append("_")
 
 
-essai = 10
+essai = 100
 
 print(" Trouvez le mot codé.")
 print('Vous commencez avec 48 points, essayez de les conservers')
 a = "_"
 while a in mot_c:
-    if essai > 0 :
+    if essai > 0:
         print("\n Il vous reste %d essais" % essai)
         # lettre remplace _
         print(mot_c)
