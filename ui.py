@@ -112,6 +112,7 @@ acceuil.title("Page d'accueil")
 acceuil.geometry("1024x768")
 acceuil.minsize(480, 360)
 acceuil.iconbitmap("img/logo.ico")
+acceuil.resizable(False, False)
 bg_acceuil = PhotoImage(file="img/acceuil.png")
 label_acceuil = Label(acceuil, image=bg_acceuil)
 label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
@@ -127,33 +128,36 @@ mainmenu.add_cascade(label="Menu", menu=first_menu)
 acceuil.config(menu=mainmenu)
 
 # CRÉATION FRAME
-frame_acceuiltop = Frame(acceuil)
-frame_acceuilbuttonplay= Frame(acceuil)
-
+frame_acceuiltop = Frame(acceuil, background="#ccccff")
+frame_acceuilbuttonplay = Frame(acceuil)
+frame_acceuilbuttontop10 = Frame(acceuil)
+frame_acceuilbuttongestionmot = Frame(acceuil)
+frame_acceuilbuttonaide = Frame(acceuil)
 
 # # TEXTE
-label_title = Label(frame_acceuiltop, text="Bienvenue sur le jeu du", font=("Courrier", 30), bg="#FF5733", fg="white")
+label_title = Label(frame_acceuiltop, text="Bienvenue sur le jeu du", font=("Courrier", 30), bg="#ccccff", fg="black")
 label_title.pack()
-label_subtitle = Label(frame_acceuiltop, text="PENDU", font=("Courrier", 40), bg="#FF5733", fg="white")
+label_subtitle = Label(frame_acceuiltop, text="PENDU", font=("Courrier", 40), bg="#ccccff", fg="black")
 label_subtitle.pack()
 
- # BUTTONS
-menu_button = Button(frame_acceuilbuttonplay, text="Jouer", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=show_jeu)
+# BUTTONS
+menu_button = Button(frame_acceuilbuttonplay, borderwidth=0,text="Jouer",width=225, font=("Arial", 15), bg="white", fg="black",command=show_jeu)
 menu_button.pack()
-menu_button = Button(frame_acceuiltop, text="Top 10", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=show_top10)
-menu_button.pack(pady="15", fill=X)
-menu_button = Button(frame_acceuiltop, text="Gestion des mots", height="2", font=("Arial", 15), bg="white", fg="#FF5733",command=show_gestion)
-menu_button.pack(pady="15", fill=X)
-menu_button = Button(frame_acceuiltop, text="Aide", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=show_aide)
-menu_button.pack(pady="15", fill=X)
-enu_button = Button(frame_acceuiltop, text="Quitter", height="2", font=("Arial", 15), bg="white", fg="#FF5733", command=quitter)
-menu_button.pack(pady="15", fill=X)
-
-# CANVAS
-
+menu_button = Button(frame_acceuilbuttontop10, borderwidth=0,text="Top 10",width=225, font=("Arial", 15), bg="white", fg="black",command=show_top10)
+menu_button.pack()
+menu_button = Button(frame_acceuilbuttongestionmot, borderwidth=0,text="Gestion des mots",width=225, font=("Arial", 15), bg="white",fg="black", command=show_gestion)
+menu_button.pack()
+menu_button = Button(frame_acceuilbuttonaide,borderwidth=0, text="Aide",width=225,font=("Arial", 15), bg="white", fg="black",command=show_aide)
+menu_button.pack()
+menu_button = Button(frame_acceuiltop, borderwidth=0,text="Quitter",width=225,font=("Arial", 15), bg="white", fg="black",command=quitter)
+menu_button.pack()
 
 # AFFICHAGE FRAME
-frame_acceuiltop.place(x=30,y=10,width=960, height=115)
-frame_acceuilbuttonplay.place(x=365,y=190,width=310, height=40)
+frame_acceuiltop.place(x=30, y=10, width=960, height=115)
+frame_acceuilbuttonplay.place(x=410, y=415, width=225, height=35)
+frame_acceuilbuttontop10.place(x=410, y=485, width=225, height=35)
+frame_acceuilbuttongestionmot.place(x=410, y=555, width=225, height=35)
+frame_acceuilbuttonaide.place(x=410, y=625, width=225, height=35)
+
 # AFFICHAGE PAGE ACCEUIL
 acceuil.mainloop()
