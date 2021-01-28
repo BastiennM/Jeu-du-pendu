@@ -18,18 +18,10 @@ def quitter():
     acceuil.quit()
 
 
-# RECUPERATION PSEUDO
-def getpseudo():
-    pseudoJeu = pseudo.get()
-    print(pseudoJeu)
 
 
-# RECUPERATION DIFFICULTE
-def getdifficulte():
-    difficulte = listedifficulte.get()
+# <======================================================= PAGE JEU ========================================================>
 
-
-# <======================================================== PAGE JEU ========================================================>
 def show_jeu():
     jeu_window = tkinter.Toplevel(acceuil)
     jeu_window.title("Jeu du pendu")
@@ -54,7 +46,6 @@ def show_jeu():
     jeu_window.config(menu=pendumenu)
 
     # CREATION FRAME
-
     frame_topbanner = Frame(jeu_window, background="#ccccff")
     frame_timer = Frame(jeu_window, background="white")
     frame_dessin = Frame(jeu_window, background="white")
@@ -68,10 +59,99 @@ def show_jeu():
     frame_mot.place(x=610, y=160, width=390, height=330)
     frame_clavier.place(x=40, y=555, width=940, height=170)
 
-    # TEXTE
-    label_pseudo = Label(frame_topbanner, text="A vous de jouer " + str(getpseudo()), font=("Arial", 30), bg="#ccccff",
-                         fg="black")
+    # AFFICHAGE PSEUDO
+    label_pseudo = Label(frame_topbanner, text="", font=("Arial", 30), bg="#ccccff", fg="black")
+    pseudoJeu = pseudoEntry.get()
+    label_pseudo.config(text="A toi de jouer " + pseudoJeu + " !")
     label_pseudo.pack()
+
+    # AFFICHAGE DIFFICULTE
+    label_difficulte = Label(frame_topbanner, text="", font=("Arial", 10), bg="#ccccff", fg="black")
+    modeJeu = listedifficulte.get()
+    label_difficulte.config(text="Difficulté : " + modeJeu)
+    label_difficulte.pack()
+
+    # LABEL TIMER
+    timer = Label(frame_timer, text="")
+    timer.pack()
+
+    #FONCTION TIMER
+    def decompte(count=120):
+        timer.config(text=str(count))
+        if count > 0:
+            frame_timer.after(1000, decompte, count - 1, )
+        if count <= 0:
+            timer.config(text="Temps écoulé, vous avez perdu !!")
+        pts = 50
+        if count == 90:
+            pts = pts - 10
+            print("Il vous reste", pts, "points")
+        pts = pts - 10
+        if count == 60:
+            pts = pts - 10
+            print("Il vous reste", pts, "points")
+        pts = pts - 20
+        if count == 30:
+            pts = pts - 10
+            print("Il vous reste", pts, "points")
+
+    #BOUTTON TIMER
+    btn_timer = Button(frame_timer, text="Commencer", command=decompte)
+    btn_timer.pack()
+
+    #CLAVIER
+    button = Button(frame_clavier, text="A", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=62, y=20)
+    button = Button(frame_clavier, text="B", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=122, y=20)
+    button = Button(frame_clavier, text="C", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=182, y=20)
+    button = Button(frame_clavier, text="D", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=242, y=20)
+    button = Button(frame_clavier, text="E", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=302, y=20)
+    button = Button(frame_clavier, text="F", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=362, y=20)
+    button = Button(frame_clavier, text="G", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=422, y=20)
+    button = Button(frame_clavier, text="H", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=482, y=20)
+    button = Button(frame_clavier, text="I", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=542, y=20)
+    button = Button(frame_clavier, text="J", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=602, y=20)
+    button = Button(frame_clavier, text="K", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=662, y=20)
+    button = Button(frame_clavier, text="L", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=722, y=20)
+    button = Button(frame_clavier, text="M", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=782, y=20)
+    button = Button(frame_clavier, text="N", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=842, y=20)
+    button = Button(frame_clavier, text="O", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=122, y=90)
+    button = Button(frame_clavier, text="P", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=182, y=90)
+    button = Button(frame_clavier, text="Q", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=242, y=90)
+    button = Button(frame_clavier, text="R", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=302, y=90)
+    button = Button(frame_clavier, text="S", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=362, y=90)
+    button = Button(frame_clavier, text="T", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=422, y=90)
+    button = Button(frame_clavier, text="U", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=482, y=90)
+    button = Button(frame_clavier, text="V", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=542, y=90)
+    button = Button(frame_clavier, text="W", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=602, y=90)
+    button = Button(frame_clavier, text="X", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=662, y=90)
+    button = Button(frame_clavier, text="Y", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=722, y=90)
+    button = Button(frame_clavier, text="Z", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
+    button.place(x=782, y=90)
 
 
 # <======================================================== PAGE JEU ========================================================>
@@ -183,8 +263,8 @@ label_subtitle.pack()
 
 # ZONE DE SAISIE PSEDUO
 
-pseudo = Entry(frame_acceuilpseudo, width=50, background=None)
-pseudo.pack()
+pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
+pseudoEntry.pack()
 
 # CHOIX DE DIFFICULTÉ
 optionsdifficulte = ["Facile", "Normal", "Difficile"]
