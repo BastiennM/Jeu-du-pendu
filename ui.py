@@ -110,7 +110,7 @@ def show_jeu():
     lbl = Label(frame_mot, text="_ _ _ _ _ _ _ _ _", font="Times 15 bold")
     lbl.pack(padx=20, pady=20)
 
-    #CREATION ET AFFICHAGE CLAVIER
+    #CREATION ET AFFICHAGE CLAVIER => Jouer avec le style du bouton (relief) + la couleur lorsque il est cliqué (présent ou non dans le mot)
     ALPHA = "ABCDEFGHIJQLMNO"
     BETA = "PQRSTUVWXYZ"
     for a in ALPHA:
