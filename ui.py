@@ -18,8 +18,6 @@ def quitter():
     acceuil.quit()
 
 
-
-
 # <======================================================= PAGE JEU ========================================================>
 
 def show_jeu():
@@ -50,14 +48,17 @@ def show_jeu():
     frame_timer = Frame(jeu_window, background="white")
     frame_dessin = Frame(jeu_window, background="white")
     frame_mot = Frame(jeu_window, background="white")
-    frame_clavier = Frame(jeu_window, background="#ccccff")
+    frame_clavier1 = Frame(jeu_window, background="#ccccff")
+    frame_clavier2 = Frame(jeu_window, background="#ccccff")
+
 
     # AFFICHAGE FRAME
     frame_topbanner.place(x=40, y=20, width=940, height=65)
     frame_timer.place(x=448, y=115, width=130, height=68)
-    frame_dessin.place(x=23, y=160, width=390, height=330)
-    frame_mot.place(x=610, y=160, width=390, height=330)
-    frame_clavier.place(x=40, y=555, width=940, height=170)
+    frame_mot.place(x=23, y=160, width=390, height=330)
+    frame_dessin.place(x=610, y=160, width=390, height=330)
+    frame_clavier1.place(x=80, y=570, width=900, height=70)
+    frame_clavier2.place(x=196, y=650, width=800, height=70)
 
     # AFFICHAGE PSEUDO
     label_pseudo = Label(frame_topbanner, text="", font=("Arial", 30), bg="#ccccff", fg="black")
@@ -75,7 +76,7 @@ def show_jeu():
     timer = Label(frame_timer, text="")
     timer.pack()
 
-    #FONCTION TIMER
+    # FONCTION TIMER
     def decompte(count=120):
         timer.config(text=str(count))
         if count > 0:
@@ -95,63 +96,31 @@ def show_jeu():
             pts = pts - 10
             print("Il vous reste", pts, "points")
 
-    #BOUTTON TIMER
+    # BOUTTON TIMER
     btn_timer = Button(frame_timer, text="Commencer", command=decompte)
     btn_timer.pack()
 
-    #CLAVIER
-    button = Button(frame_clavier, text="A", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=62, y=20)
-    button = Button(frame_clavier, text="B", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=122, y=20)
-    button = Button(frame_clavier, text="C", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=182, y=20)
-    button = Button(frame_clavier, text="D", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=242, y=20)
-    button = Button(frame_clavier, text="E", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=302, y=20)
-    button = Button(frame_clavier, text="F", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=362, y=20)
-    button = Button(frame_clavier, text="G", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=422, y=20)
-    button = Button(frame_clavier, text="H", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=482, y=20)
-    button = Button(frame_clavier, text="I", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=542, y=20)
-    button = Button(frame_clavier, text="J", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=602, y=20)
-    button = Button(frame_clavier, text="K", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=662, y=20)
-    button = Button(frame_clavier, text="L", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=722, y=20)
-    button = Button(frame_clavier, text="M", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=782, y=20)
-    button = Button(frame_clavier, text="N", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=842, y=20)
-    button = Button(frame_clavier, text="O", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=122, y=90)
-    button = Button(frame_clavier, text="P", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=182, y=90)
-    button = Button(frame_clavier, text="Q", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=242, y=90)
-    button = Button(frame_clavier, text="R", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=302, y=90)
-    button = Button(frame_clavier, text="S", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=362, y=90)
-    button = Button(frame_clavier, text="T", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=422, y=90)
-    button = Button(frame_clavier, text="U", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=482, y=90)
-    button = Button(frame_clavier, text="V", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=542, y=90)
-    button = Button(frame_clavier, text="W", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=602, y=90)
-    button = Button(frame_clavier, text="X", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=662, y=90)
-    button = Button(frame_clavier, text="Y", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=722, y=90)
-    button = Button(frame_clavier, text="Z", fg="black",font =('Arial', 20, 'bold'),borderwidth = '4',height=1,width=2, command=btn_timer.destroy)
-    button.place(x=782, y=90)
+    #FONCTIONS RECUP LETTRE
+    def choisir_lettre(event):
+        mon_btn = event.widget
+        texte = mon_btn["text"]
+        print("clic bouton : " + texte)
+
+    #AFFICHAGE MASQUÉ
+    lbl = Label(frame_mot, text="_ _ _ _ _ _ _ _ _", font="Times 15 bold")
+    lbl.pack(padx=20, pady=20)
+
+    #CREATION ET AFFICHAGE CLAVIER
+    ALPHA = "ABCDEFGHIJQLMNO"
+    BETA = "PQRSTUVWXYZ"
+    for a in ALPHA:
+        btn = Button(frame_clavier1, text=a,width=4, height=3)
+        btn.pack(side=LEFT, pady=10, padx=10)
+        btn.bind("<Button-1>", choisir_lettre)
+    for b in BETA:
+        btn = Button(frame_clavier2, text=b, width=4, height=3)
+        btn.pack(side=LEFT, pady=10, padx=10)
+        btn.bind("<Button-1>", choisir_lettre)
 
 
 # <======================================================== PAGE JEU ========================================================>
