@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter
 from tkinter import ttk
+from random import randrange
 
 
 # <======================================================== FONCTIONS ========================================================>
@@ -51,7 +52,6 @@ def show_jeu():
     frame_clavier1 = Frame(jeu_window, background="#ccccff")
     frame_clavier2 = Frame(jeu_window, background="#ccccff")
 
-
     # AFFICHAGE FRAME
     frame_topbanner.place(x=40, y=20, width=940, height=65)
     frame_timer.place(x=448, y=115, width=130, height=68)
@@ -100,21 +100,30 @@ def show_jeu():
     btn_timer = Button(frame_timer, text="Commencer", command=decompte)
     btn_timer.pack()
 
-    #FONCTIONS RECUP LETTRE
+    #MOT
+    secret = "SAPINS"
+    longsecret = len(secret)
+    mot_en_progres = list("_" * longsecret)
+    stars = " ".join(mot_en_progres)
+
+    # FONCTIONS RECUP LETTRE
     def choisir_lettre(event):
         mon_btn = event.widget
-        texte = mon_btn["text"]
-        print("clic bouton : " + texte)
+        stars = mon_btn["text"]
+        k = randrange(longsecret)
+        mot_en_progres[k] = stars
+        lbl["text"] = "".join(mot_en_progres)
 
-    #AFFICHAGE MASQUÉ
-    lbl = Label(frame_mot, text="_ _ _ _ _ _ _ _ _", font="Times 15 bold")
+
+    # AFFICHAGE DES LETTRES
+    lbl = Label(frame_mot, text=stars, font="Times 15 bold")
     lbl.pack(padx=20, pady=20)
 
-    #CREATION ET AFFICHAGE CLAVIER => Jouer avec le style du bouton (relief) + la couleur lorsque il est cliqué (présent ou non dans le mot)
+    # CREATION ET AFFICHAGE CLAVIER => Jouer avec le style du bouton (relief) + la couleur lorsque il est cliqué (présent ou non dans le mot)
     ALPHA = "ABCDEFGHIJQLMNO"
     BETA = "PQRSTUVWXYZ"
     for a in ALPHA:
-        btn = Button(frame_clavier1, text=a,width=4, height=3)
+        btn = Button(frame_clavier1, text=a, width=4, height=3)
         btn.pack(side=LEFT, pady=10, padx=10)
         btn.bind("<Button-1>", choisir_lettre)
     for b in BETA:
