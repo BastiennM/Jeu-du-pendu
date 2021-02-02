@@ -1,6 +1,6 @@
 from tkinter import *
-import tkinter
 from tkinter import ttk
+import tkinter
 
 # <======================================================== FONCTIONS ========================================================>
 # DEUX FONCTION
