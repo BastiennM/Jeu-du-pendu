@@ -1,8 +1,6 @@
 from tkinter import *
 import tkinter
 from tkinter import ttk
-from random import randrange
-
 
 # <======================================================== FONCTIONS ========================================================>
 # DEUX FONCTION
@@ -20,8 +18,14 @@ def quitter():
 
 
 # <======================================================= PAGE JEU ========================================================>
+#DECLARATION DES VARIABLES POUR LA FONCTION SCORE
+cpt_perdu = 0
+limite_perdu = 5
+end = False
 
+#FONCTION DU JEU
 def show_jeu():
+    acceuil.withdraw()
     jeu_window = tkinter.Toplevel(acceuil)
     jeu_window.title("Jeu du pendu")
     jeu_window.geometry("1024x768")
@@ -31,7 +35,6 @@ def show_jeu():
     jeu_window.resizable(False, False)
     label_jeu = Label(jeu_window, image=bg_jeu)
     label_jeu.place(x=0, y=0, relwidth=1, relheight=1)
-    acceuil.withdraw()
 
     # Menu Page de jeu
     pendumenu = tkinter.Menu(jeu_window)
@@ -100,24 +103,49 @@ def show_jeu():
     btn_timer = Button(frame_timer, text="Commencer", command=decompte)
     btn_timer.pack()
 
-    #MOT
+    # FONCTION MODIF LETTRE SI VRAI OU FAUX
+    def maj_mot_en_progres(mot_en_progres, lettre, secret):
+        n = len(secret)
+        for i in range(n):
+            if secret[i] == lettre:
+                mot_en_progres[i] = lettre
+                if mot_en_progres == list(secret):
+                    annonce["text"] = "Gagné !"
+
+    #FONCTION SCORE
+    def score(lettre):
+        global cpt_perdu, end
+        if lettre not in secret:
+            cpt_perdu += 1
+            print(cpt_perdu)
+            if cpt_perdu >= limite_perdu:
+                annonce["text"] = "Perdu !"
+                end = True
+        elif mot_en_progres == list(secret):
+            annonce["text"] = "Gagné !"
+            end = True
+
+    # FONCTIONS RECUP LETTRE
+    def choisir_lettre(event):
+        mon_btn = event.widget
+        lettre = mon_btn["text"]
+        maj_mot_en_progres(mot_en_progres, lettre, secret)
+        lbl["text"] = " ".join(mot_en_progres)
+        score(lettre)
+
+    # MOT
     secret = "SAPINS"
     longsecret = len(secret)
     mot_en_progres = list("_" * longsecret)
     stars = " ".join(mot_en_progres)
 
-    # FONCTIONS RECUP LETTRE
-    def choisir_lettre(event):
-        mon_btn = event.widget
-        stars = mon_btn["text"]
-        k = randrange(longsecret)
-        mot_en_progres[k] = stars
-        lbl["text"] = "".join(mot_en_progres)
-
-
     # AFFICHAGE DES LETTRES
     lbl = Label(frame_mot, text=stars, font="Times 15 bold")
     lbl.pack(padx=20, pady=20)
+
+    # AFFICHAFE DEFAIT / VICTOIRE
+    annonce = Label(frame_mot, width=8, font="Times 15 bold")
+    annonce.pack(padx=5, pady=5)
 
     # CREATION ET AFFICHAGE CLAVIER => Jouer avec le style du bouton (relief) + la couleur lorsque il est cliqué (présent ou non dans le mot)
     ALPHA = "ABCDEFGHIJQLMNO"
@@ -135,13 +163,13 @@ def show_jeu():
 # <======================================================== PAGE JEU ========================================================>
 # <======================================================== PAGE TOP10 ========================================================>
 def show_top10():
+    acceuil.withdraw()
     top10_window = tkinter.Toplevel(acceuil)
     top10_window.title("Top 10")
     top10_window.geometry("1080x720")
     top10_window.minsize(480, 360)
     top10_window.iconbitmap("img/logo.ico")
     top10_window.config(background='#f9791e')
-    acceuil.withdraw()
 
     # Menu Page de top 10
     pendumenu = tkinter.Menu(top10_window)
@@ -157,13 +185,13 @@ def show_top10():
 # <======================================================== PAGE TOP10 ========================================================>
 # <======================================================== PAGE GESTION DES MOTS ========================================================>
 def show_gestion():
+    acceuil.withdraw()
     gestion_window = tkinter.Toplevel(acceuil)
     gestion_window.title("Gestion des mots")
     gestion_window.geometry("1080x720")
     gestion_window.minsize(480, 360)
     gestion_window.iconbitmap("img/logo.ico")
     gestion_window.config(background=' #f9791e')
-    acceuil.withdraw()
 
     # Menu Page de gestions de mots
     pendumenu = tkinter.Menu(gestion_window)
@@ -179,13 +207,13 @@ def show_gestion():
 # <======================================================== PAGE GESTION DES MOTS ========================================================>
 # <======================================================== PAGE AIDE ========================================================>
 def show_aide():
+    acceuil.withdraw()
     aide_window = tkinter.Toplevel(acceuil)
     aide_window.title("Aide")
     aide_window.geometry("1080x720")
     aide_window.minsize(480, 360)
     aide_window.iconbitmap("img/logo.ico")
     aide_window.config(background='#f9791e')
-    acceuil.withdraw()
 
     # Menu Page aide
     pendumenu = tkinter.Menu(aide_window)
