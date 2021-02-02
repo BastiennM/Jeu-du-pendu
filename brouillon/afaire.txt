@@ -1,0 +1,2 @@
+menu acceuil
+affichage pseudo + difficulté

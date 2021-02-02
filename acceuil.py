@@ -1,7 +1,9 @@
+from game import opengame
+from top10 import opentop10
+from aide import openaide
+from gestiondesmots import opengestionmot
 from tkinter import *
 from tkinter import ttk
-import tkinter
-from game import *
 
 
 class acceuil:
@@ -21,12 +23,12 @@ class acceuil:
         label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Menu acceuil
-        mainmenu = tkinter.Menu(self.window)
-        first_menu = tkinter.Menu(mainmenu, tearoff=0)
-        first_menu.add_command(label="Top 10")
-        first_menu.add_command(label="Gestion des mots")
-        first_menu.add_command(label="Aide")
-        first_menu.add_command(label="Quitter",command=self.closeWindow)
+        mainmenu = Menu(self.window)
+        first_menu = Menu(mainmenu, tearoff=0)
+        first_menu.add_command(label="Top 10", command=self.opentop10window)
+        first_menu.add_command(label="Gestion des mots", command=self.opengestionmots)
+        first_menu.add_command(label="Aide", command=self.openaidewindow)
+        first_menu.add_command(label="Quitter", command=self.closeWindow)
         mainmenu.add_cascade(label="Menu", menu=first_menu)
         self.window.config(menu=mainmenu)
 
@@ -52,6 +54,7 @@ class acceuil:
         pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
         pseudoEntry.pack()
 
+
         # CHOIX DE DIFFICULTÉ
         optionsdifficulte = ["Facile", "Normal", "Difficile"]
         listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34,
@@ -65,16 +68,17 @@ class acceuil:
                                 fg="black", command=self.opengamewindow)
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttontop10, borderwidth=0, text="Top 10", width=225, font=("Arial", 15),
-                                bg="white", fg="black")
+                                bg="white", fg="black", command=self.opentop10window)
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttongestionmot, borderwidth=0, text="Gestion des mots", width=225,
-                                font=("Arial", 15), bg="white", fg="black")
+                                font=("Arial", 15), bg="white", fg="black", command=self.opengestionmots)
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttonaide, borderwidth=0, text="Aide", width=225, font=("Arial", 15),
                                 bg="white",
-                                fg="black")
+                                fg="black", command=self.openaidewindow)
         acceuil_button.pack()
-        acceuil_button = Button(frame_acceuilbuttonquitter, borderwidth=0, text="Quitter", width=225, font=("Arial", 15),
+        acceuil_button = Button(frame_acceuilbuttonquitter, borderwidth=0, text="Quitter", width=225,
+                                font=("Arial", 15),
                                 bg="white",
                                 fg="black", command=self.closeWindow)
         acceuil_button.pack()
@@ -95,9 +99,20 @@ class acceuil:
         self.window.destroy()
 
     def opengamewindow(self):
-        game = Game()
         self.closeWindow()
-        game.openWindow()
+        opengame()
+
+    def opentop10window(self):
+        self.closeWindow()
+        opentop10()
+
+    def openaidewindow(self):
+        self.closeWindow()
+        openaide()
+
+    def opengestionmots(self):
+        self.closeWindow()
+        opengestionmot()
 
 
 main = acceuil()

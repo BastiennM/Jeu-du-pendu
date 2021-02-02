@@ -230,6 +230,8 @@ def show_aide():
 # <======================================================== FONCTIONS ========================================================>
 
 # <======================================================== PAGE ACCEUIL ========================================================>
+
+
 acceuil = Tk()
 acceuil.title("Page d'accueil")
 acceuil.geometry("1024x768")
@@ -237,8 +239,8 @@ acceuil.minsize(1024, 768)
 acceuil.maxsize(1024, 768)
 acceuil.iconbitmap("img/logo.ico")
 acceuil.resizable(False, False)
-bg_acceuil = PhotoImage(file="img/acceuil.png")
-bg_jeu = PhotoImage(file="img/jeupendu.png")
+bg_acceuil = PhotoImage(file="../img/acceuil.png")
+bg_jeu = PhotoImage(file="../img/jeupendu.png")
 label_acceuil = Label(acceuil, image=bg_acceuil)
 label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -295,6 +297,7 @@ acceuil_button.pack()
 acceuil_button = Button(frame_acceuiltop, borderwidth=0, text="Quitter", width=225, font=("Arial", 15), bg="white",
                         fg="black", command=quitter)
 acceuil_button.pack()
+
 
 # AFFICHAGE FRAME
 frame_acceuiltop.place(x=30, y=10, width=960, height=115)
