@@ -18,8 +18,9 @@ def two_funcs(*funcs):
 
 
 class Game:
-        def __init__(self,):
+        def __init__(self,player):
             self.window = Tk()
+            self.player=player
         def openWindow(self):
             self.window.title("Jeu du pendu")
             self.window.geometry("1024x768")

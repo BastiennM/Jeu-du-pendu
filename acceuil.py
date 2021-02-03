@@ -3,6 +3,7 @@ import top10
 import aide
 import gestiondesmots
 import game
+import tkinter as Tk
 from tkinter import *
 from tkinter import ttk
 
@@ -12,6 +13,8 @@ class acceuil:
     def __init__(self,player):
         self.window = Tk()
         self.player = player
+        self.nom_var=StringVar()
+        self.difficulte_var=StringVar()
     def openWindow(self):
         self.window.title("Acceuil")
         self.window.geometry("1024x768")
@@ -52,7 +55,7 @@ class acceuil:
 
         # ZONE DE SAISIE PSEDUO
 
-        pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
+        pseudoEntry = Entry(frame_acceuilpseudo,textvariable=self.nom_var, width=50, background=None)
         pseudoEntry.pack()
 
 
@@ -101,9 +104,11 @@ class acceuil:
 
     def opengamewindow(self):
         self.closeWindow()
-        game.Game().openWindow()
+        self.player.name=self.nom_var.get()
+        print (self.player.name)
+        game.Game(self.player).openWindow()
 
-    def opentop10window(self):
+    def opentop10window(self,joueur):
         self.closeWindow()
         top10.Top10().openWindow()
 
