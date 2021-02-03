@@ -1,6 +1,5 @@
 from tkinter import *
-from gestiondesmots import opengestionmot
-from top10 import opentop10
+
 
 # DEUX FONCTION
 def two_funcs(*funcs):
@@ -10,8 +9,7 @@ def two_funcs(*funcs):
     return two_funcs
 
 
-def openaide():
-    class aide:
+class Aide:
         def __init__(self):
             self.window = Tk()
 
@@ -19,18 +17,14 @@ def openaide():
             self.window.title("Aide")
             self.window.geometry("1080x720")
             self.window.minsize(480, 360)
-            self.window.iconbitmap("img/logo.ico")
+            #self.window.iconbitmap("img/logo.ico")
             self.window.config(background='#f9791e')
 
             # Menu Page aide
             pendumenu = Menu(self.window)
             first_menu = Menu(pendumenu, tearoff=0)
             first_menu.add_command(label="Acceuil")
-            first_menu.add_command(label="Gestion des mots", command=two_funcs(self.window.destroy,opengestionmot))
-            first_menu.add_command(label="Top 10",command=two_funcs(self.window.destroy,opentop10))
             first_menu.add_command(label="Quitter",command=self.window.destroy)
             pendumenu.add_cascade(label="Menu", menu=first_menu)
             self.window.config(menu=pendumenu)
 
-    main = aide()
-    main.openWindow()
