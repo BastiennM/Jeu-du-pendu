@@ -1,7 +1,7 @@
 from tkinter import *
-from top10 import opentop10
-from aide import openaide
-from gestiondesmots import opengestionmot
+from top10 import Top10
+from aide import Aide
+from gestiondesmots import GestionMot
 
 # DECLARATION DES VARIABLES POUR LA FONCTION SCORE
 limite_perdu = 5
@@ -17,17 +17,16 @@ def two_funcs(*funcs):
     return two_funcs
 
 
-def opengame():
-    class Game:
-        def __init__(self):
+class Game:
+        def __init__(self,player):
             self.window = Tk()
-
+            self.player=player
         def openWindow(self):
             self.window.title("Jeu du pendu")
             self.window.geometry("1024x768")
             self.window.minsize(1024, 768)
             self.window.maxsize(1024, 768)
-            self.window.iconbitmap("img/logo.ico")
+           #self.window.iconbitmap("img/logo.ico")
             self.window.resizable(False, False)
             bg_jeu = PhotoImage(file="img/jeupendu.png")
             label_jeu = Label(self.window, image=bg_jeu)
@@ -37,9 +36,9 @@ def opengame():
             pendumenu = Menu(self.window)
             first_menu = Menu(pendumenu, tearoff=0)
             first_menu.add_command(label="Acceuil")
-            first_menu.add_command(label="Top 10", command=opentop10)
-            first_menu.add_command(label="Gestion des mots", command=two_funcs(self.window.destroy, opengestionmot))
-            first_menu.add_command(label="Aide", command=openaide)
+            first_menu.add_command(label="Top 10", command=Top10.openWindow(self))
+            first_menu.add_command(label="Gestion des mots", command=two_funcs(self.window.destroy, GestionMot.openWindow(self)))
+            first_menu.add_command(label="Aide", command=Aide.openWindow(self))
             first_menu.add_command(label="Quitter", command=self.window.destroy)
             pendumenu.add_cascade(label="Menu", menu=first_menu)
             self.window.config(menu=pendumenu)
@@ -157,5 +156,4 @@ def opengame():
                 btn.bind("<Button-1>", choisir_lettre)
             self.window.mainloop()
 
-    main = Game()
-    main.openWindow()
+  

@@ -1,22 +1,26 @@
-from game import opengame
-from top10 import opentop10
-from aide import openaide
-from gestiondesmots import opengestionmot
+
+import top10
+import aide
+import gestiondesmots
+import game
+import tkinter as Tk
 from tkinter import *
 from tkinter import ttk
 
 
 class acceuil:
 
-    def __init__(self):
+    def __init__(self,player):
         self.window = Tk()
-
+        self.player = player
+        self.nom_var=StringVar()
+        self.difficulte_var=StringVar()
     def openWindow(self):
         self.window.title("Acceuil")
         self.window.geometry("1024x768")
         self.window.minsize(1024, 768)
         self.window.maxsize(1024, 768)
-        self.window.iconbitmap("img/logo.ico")
+       # self.window.iconbitmap("img/logo.ico")
         self.window.resizable(False, False)
         bg_acceuil = PhotoImage(file="img/acceuil.png")
         label_acceuil = Label(self.window, image=bg_acceuil)
@@ -51,7 +55,7 @@ class acceuil:
 
         # ZONE DE SAISIE PSEDUO
 
-        pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
+        pseudoEntry = Entry(frame_acceuilpseudo,textvariable=self.nom_var, width=50, background=None)
         pseudoEntry.pack()
 
 
@@ -100,20 +104,20 @@ class acceuil:
 
     def opengamewindow(self):
         self.closeWindow()
-        opengame()
+        self.player.name=self.nom_var.get()
+        print (self.player.name)
+        game.Game(self.player).openWindow()
 
-    def opentop10window(self):
+    def opentop10window(self,joueur):
         self.closeWindow()
-        opentop10()
+        top10.Top10().openWindow()
 
     def openaidewindow(self):
         self.closeWindow()
-        openaide()
+        aide.Aide.openWindow()
 
     def opengestionmots(self):
         self.closeWindow()
-        opengestionmot()
+        gestiondesmots.GestionMot.openWindow()
 
 
-main = acceuil()
-main.openWindow()

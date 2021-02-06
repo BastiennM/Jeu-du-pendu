@@ -1,11 +1,10 @@
 from tkinter import *
-from aide import openaide
-from top10 import opentop10
+#from aide import openaide
+#from top10 import opentop10
 
 
 
-def opengestionmot():
-    class gestionmot:
+class GestionMot:
         def __init__(self):
             self.window = Tk()
 
@@ -13,7 +12,7 @@ def opengestionmot():
             self.window.title("Gestion Mot")
             self.window.geometry("1080x720")
             self.window.minsize(480, 360)
-            self.window.iconbitmap("img/logo.ico")
+            #self.window.iconbitmap("img/logo.ico")
             self.window.config(background='#f9791e')
 
             # Menu Page aide
@@ -25,6 +24,3 @@ def opengestionmot():
             first_menu.add_command(label="Quitter")
             pendumenu.add_cascade(label="Menu")
             self.window.config(menu=pendumenu)
-
-    main = gestionmot()
-    main.openWindow()
