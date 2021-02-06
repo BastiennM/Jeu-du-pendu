@@ -139,7 +139,7 @@ class Game:
             lbl = Label(frame_mot, text=stars, font="Times 15 bold")
             lbl.pack(padx=20, pady=20)
 
-            # AFFICHAFE DEFAIT / VICTOIRE
+            # AFFICHAGE DEFAITE / VICTOIRE
             annonce = Label(frame_mot, width=8, font="Times 15 bold")
             annonce.pack(padx=5, pady=5)
 
