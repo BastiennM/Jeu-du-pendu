@@ -17,7 +17,7 @@ class Aide:
             self.window.title("Aide")
             self.window.geometry("1080x720")
             self.window.minsize(480, 360)
-            #self.window.iconbitmap("img/logo.ico")
+            self.window.iconbitmap("img/logo.ico")
             self.window.config(background='#f9791e')
 
             # Menu Page aide

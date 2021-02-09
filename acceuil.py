@@ -114,8 +114,8 @@ class acceuil:
 
     def openaidewindow(self):
         self.closeWindow()
-        aide.Aide.openWindow()
+        aide.Aide().openWindow()
 
     def opengestionmots(self):
         self.closeWindow()
-        gestiondesmots.GestionMot.openWindow()
+        gestiondesmots.GestionMot().openWindow()
