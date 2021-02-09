@@ -27,7 +27,7 @@ class Top10:
             first_menu.add_command(label="Acceuil")
             
             first_menu.add_command(label="Gestion des mots", command=two_funcs(self.window.destroy, GestionMot.openWindow(self)))
-            first_menu.add_command(label="Aide",command=two_funcs(self.window.destroy, Aide.openWindow(self))
+            first_menu.add_command(label="Aide",command=two_funcs(self.window.destroy, Aide.openWindow(self)))
 
             first_menu.add_command(label="Quitter", command=self.window.destroy)
             pendumenu.add_cascade(label="Menu", menu=first_menu)

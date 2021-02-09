@@ -1,4 +1,3 @@
-
 import top10
 import aide
 import gestiondesmots
@@ -6,21 +5,23 @@ import game
 import tkinter as Tk
 from tkinter import *
 from tkinter import ttk
+import hangman
 
 
 class acceuil:
 
-    def __init__(self,player):
+    def __init__(self, player):
         self.window = Tk()
         self.player = player
-        self.nom_var=StringVar()
-        self.difficulte_var=StringVar()
+        self.nom_var = StringVar()
+        self.difficulte_var = StringVar()
+
     def openWindow(self):
         self.window.title("Acceuil")
         self.window.geometry("1024x768")
         self.window.minsize(1024, 768)
         self.window.maxsize(1024, 768)
-       # self.window.iconbitmap("img/logo.ico")
+        self.window.iconbitmap("img/logo.ico")
         self.window.resizable(False, False)
         bg_acceuil = PhotoImage(file="img/acceuil.png")
         label_acceuil = Label(self.window, image=bg_acceuil)
@@ -55,9 +56,8 @@ class acceuil:
 
         # ZONE DE SAISIE PSEDUO
 
-        pseudoEntry = Entry(frame_acceuilpseudo,textvariable=self.nom_var, width=50, background=None)
+        pseudoEntry = Entry(frame_acceuilpseudo, textvariable=self.nom_var, width=50, background=None)
         pseudoEntry.pack()
-
 
         # CHOIX DE DIFFICULTÉ
         optionsdifficulte = ["Facile", "Normal", "Difficile"]
@@ -104,11 +104,11 @@ class acceuil:
 
     def opengamewindow(self):
         self.closeWindow()
-        self.player.name=self.nom_var.get()
-        print (self.player.name)
+        self.player.name = self.nom_var.get()  # A recuperer avec un bouton
+        print(self.player.name)
         game.Game(self.player).openWindow()
 
-    def opentop10window(self,joueur):
+    def opentop10window(self, joueur):
         self.closeWindow()
         top10.Top10().openWindow()
 
@@ -119,5 +119,3 @@ class acceuil:
     def opengestionmots(self):
         self.closeWindow()
         gestiondesmots.GestionMot.openWindow()
-
-
