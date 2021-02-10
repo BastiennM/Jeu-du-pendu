@@ -7,7 +7,17 @@ from tkinter import ttk
 import xml.etree.ElementTree as ET
 
 
-class acceuil:
+# DEUX FONCTION
+
+def two_funcs(*funcs):
+    def two_funcs(*args, **kwargs):
+        for f in funcs:
+            f(*args, **kwargs)
+
+    return two_funcs
+
+
+class Acceuil:
 
     def __init__(self):
         self.window = Tk()
@@ -45,7 +55,7 @@ class acceuil:
 
         # TEXTE
         label_title = Label(frame_acceuiltop, text="Bienvenue sur le jeu du", font=("Arial", 30), bg="#ccccff",
-                           fg="black")
+                            fg="black")
         label_title.pack()
         label_subtitle = Label(frame_acceuiltop, text="PENDU", font=("Courrier", 40), bg="#ccccff", fg="black")
         label_subtitle.pack()
@@ -54,11 +64,11 @@ class acceuil:
 
         pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
         pseudoEntry.pack()
-        pseudo = pseudoEntry.get()
 
         # CHOIX DE DIFFICULTÉ
         optionsdifficulte = ["Facile", "Normal", "Difficile"]
-        listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34,justify="center")
+        listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, width=34,
+                                       justify="center")
         listedifficulte.current(0)
         listedifficulte.pack()
 
@@ -81,7 +91,7 @@ class acceuil:
         # BUTTONS
         acceuil_button = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer", width=225, font=("Arial", 15),
                                 bg="white",
-                                fg="black", command=creerjoueur)
+                                fg="black", command=self.opengamewindow)
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttontop10, borderwidth=0, text="Top 10", width=225, font=("Arial", 15),
                                 bg="white", fg="black", command=self.opentop10window)
@@ -131,5 +141,5 @@ class acceuil:
         opengestionmot()
 
 
-main = acceuil()
+main = Acceuil()
 main.openWindow()

@@ -3,7 +3,6 @@ from aide import openaide
 from top10 import opentop10
 
 
-
 def opengestionmot():
     class gestionmot:
         def __init__(self):

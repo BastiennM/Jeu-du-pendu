@@ -1,13 +1,14 @@
 import xml.etree.ElementTree as ET
 
-# tree = ET.parse('test.xml')
-# myroot = tree.getroot()
-'''
+
+tree = ET.parse('new.xml')
+myroot = tree.getroot()
 # PRINT NOM
-for x in myroot.findall('user'):
-    nom = x.find('nom').text
+
+for x in myroot.findall('sub-player'):
+    nom = x.find('nomplayer').text
     print(nom)
-'''
+
 
 '''
 #MODIFIER UN CHAMP
@@ -45,16 +46,10 @@ myroot[0].clear()
 tree.write('new.xml')
 '''
 
-
-
-#creer un groupe
-root = ET.Element("player")
-groupe = ET.SubElement(root, "sub-player")
-
-ET.SubElement(groupe, "nomplayer").text = "NOM"
-ET.SubElement(groupe, "difficulte").text = "DIFFICULTE"
-
-tree1 = ET.ElementTree(root)
-tree1.write('new.xml')
-
-
+# # creer un groupe
+# new_field = ET.Element("player")
+# groupe = ET.SubElement(new_field, "sub-player")
+# ET.SubElement(groupe, "nomplayer").text = "NOM"
+# ET.SubElement(groupe, "difficulte").text = "DIFFICULTE"
+# tree1 = ET.ElementTree(groupe)
+# tree1.write(open('new.xml', 'wb'))

@@ -1,7 +1,7 @@
 from tkinter import *
+from gestiondesmots import opengestionmot
 from top10 import opentop10
 from aide import openaide
-from gestiondesmots import opengestionmot
 
 # DECLARATION DES VARIABLES
 limite_perdu = 11
@@ -53,7 +53,6 @@ def opengame():
             frame_mot = Frame(self.window, background="white")
             frame_clavier1 = Frame(self.window, background="#ccccff")
             frame_clavier2 = Frame(self.window, background="#ccccff")
-            frame_reset = Frame(self.window, background="white")
 
             # ETAPES PENDU
             etape1 = PhotoImage(file="img/etape1.png")
@@ -78,16 +77,14 @@ def opengame():
             label_etape10 = Label(self.window, image=etape10, borderwidth=0)
             etape11 = PhotoImage(file="img/etape11.png")
             label_etape11 = Label(self.window, image=etape11, borderwidth=0)
+            perdu = PhotoImage(file="img/hor-removebg-preview.png")
+            label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
             label_etape = [label_etape1, label_etape2, label_etape3, label_etape4, label_etape5, label_etape6,
-                           label_etape7, label_etape8, label_etape9, label_etape10, label_etape11]
+                           label_etape7, label_etape8, label_etape9, label_etape10, label_etape11, label_perdu]
 
             # AFFICHAGE FRAME
             frame_topbanner.place(x=40, y=20, width=940, height=65)
             frame_timer.place(x=448, y=115, width=130, height=68)
-            frame_mot.place(x=23, y=160, width=390, height=330)
-            frame_dessin.place(x=610, y=160, width=390, height=330)
-            frame_clavier1.place(x=80, y=570, width=900, height=70)
-            frame_clavier2.place(x=196, y=650, width=800, height=70)
 
             # # AFFICHAGE PSEUDO
             # label_pseudo = Label(frame_topbanner, text="", font=("Arial", 30), bg="#ccccff", fg="black")
@@ -102,32 +99,35 @@ def opengame():
             # label_difficulte.pack()
 
             # LABEL TIMER
-            timer = Label(frame_timer, text="")
+            timer = Label(frame_timer, text="", background="white")
             timer.pack()
 
             # FONCTION TIMER
-            def decompte(count=120):
+            def decompte(count=200):
+                global end
                 timer.config(text=str(count))
                 if count > 0:
+                    end = False
                     frame_timer.after(1000, decompte, count - 1, )
+                    btn_timer["state"] = DISABLED
                 if count <= 0:
-                    timer.config(text="Temps écoulé, vous avez perdu !!")
-                pts = 50
-                if count == 90:
-                    pts = pts - 10
-                    print("Il vous reste", pts, "points")
-                pts = pts - 10
-                if count == 60:
-                    pts = pts - 10
-                    print("Il vous reste", pts, "points")
-                pts = pts - 20
-                if count == 30:
-                    pts = pts - 10
-                    print("Il vous reste", pts, "points")
+                    label_perduhorloge = Label(self.window, text="Temps écoulé, vous avez perdu !!",
+                                               font=("Courrier", 15), bg="white")
+                    label_perduhorloge.place(x=640, y=180)
+                    end = True
+                    lbl["text"] = "".join(secret)
+                    annonce["text"] = "Perdu !"
+                    label_etape[11].place(x=640, y=230)
+
+            def lancerjeu():
+                frame_clavier1.place(x=80, y=570, width=900, height=70)
+                frame_clavier2.place(x=196, y=650, width=800, height=70)
+                frame_mot.place(x=23, y=160, width=390, height=330)
+                frame_dessin.place(x=610, y=160, width=390, height=330)
 
             # BOUTTON TIMER
-            btn_timer = Button(frame_timer, text="Commencer", command=decompte)
-            btn_timer.pack()
+            btn_timer = Button(self.window, text="Commencer", command=two_funcs(decompte, lancerjeu))
+            btn_timer.place(x=475, y=150)
 
             # FONCTION MODIF LETTRE SI VRAI OU FAUX
             def maj_mot_en_progres(mot_en_progres, lettre, secret):
@@ -143,16 +143,18 @@ def opengame():
                 global cpt_perdu, end
                 if lettre not in secret:
                     cpt_perdu += 1
-                    label_etape[cpt_perdu-1].place(x=610, y=160)
+                    label_etape[cpt_perdu - 1].place(x=610, y=210)
                     if cpt_perdu == limite_perdu:
-                        label_etape[10].place(x=610, y=160)
+                        frame_clavier1.place_forget()
+                        frame_clavier2.place_forget()
+                        btnretouracceuil = Button(self.window, text="Retourner à l'acceuil", command=self.open)
+                        label_etape[10].place(x=610, y=210)
                         lbl["text"] = "".join(secret)
                         annonce["text"] = "Perdu !"
                         end = True
                 elif mot_en_progres == list(secret):
                     annonce["text"] = "Gagné !"
                     end = True
-
 
             # FONCTIONS RECUP LETTRE
             def choisir_lettre(event):
@@ -172,12 +174,12 @@ def opengame():
             stars = " ".join(mot_en_progres)
 
             # AFFICHAGE DES LETTRES
-            lbl = Label(frame_mot, text=stars, font="Times 15 bold")
-            lbl.pack(padx=20, pady=20)
+            lbl = Label(frame_mot, text=stars, font=("Times 15 bold", 45), background="white", fg="black")
+            lbl.place(x=80, y=220)
 
             # AFFICHAGE DEFAITE / VICTOIRE
-            annonce = Label(frame_mot, width=8, font="Times 15 bold")
-            annonce.pack(padx=5, pady=5)
+            annonce = Label(frame_mot, width=8, font=("Times 15 bold", 25), background="white", fg="red")
+            annonce.place(x=80, y=150)
 
             # CREATION ET AFFICHAGE CLAVIER => Jouer avec le style du bouton (relief) + la couleur lorsque il est cliqué (présent ou non dans le mot)
             ALPHA = "ABCDEFGHIJQLMNO"
@@ -194,6 +196,21 @@ def opengame():
                 btn.bind("<Button-1>", choisir_lettre)
 
             self.window.mainloop()
+
+        def closeWindow(self):
+            self.window.destroy()
+
+        def opengestionmots(self):
+            self.closeWindow()
+            opengestionmot()
+
+        def opentop10(self):
+            self.closeWindow()
+            opentop10()
+
+        def openaide(self):
+            self.closeWindow()
+            openaide()
 
     main = Game()
     main.openWindow()
