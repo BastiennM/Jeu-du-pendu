@@ -9,7 +9,8 @@ def two_funcs(*funcs):
     return two_funcs
 
 
-class Aide:
+def openaide():
+    class aide:
         def __init__(self):
             self.window = Tk()
 
@@ -24,7 +25,11 @@ class Aide:
             pendumenu = Menu(self.window)
             first_menu = Menu(pendumenu, tearoff=0)
             first_menu.add_command(label="Acceuil")
+            first_menu.add_command(label="Gestion des mots", command=two_funcs(self.window.destroy,opengestionmot))
+            first_menu.add_command(label="Top 10",command=two_funcs(self.window.destroy,opentop10))
             first_menu.add_command(label="Quitter",command=self.window.destroy)
             pendumenu.add_cascade(label="Menu", menu=first_menu)
             self.window.config(menu=pendumenu)
 
+    main = aide()
+    main.openWindow()

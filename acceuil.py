@@ -1,20 +1,16 @@
-import top10
-import aide
-import gestiondesmots
-import game
-import tkinter as Tk
+from game import opengame
+from top10 import opentop10
+from aide import openaide
+from gestiondesmots import opengestionmot
 from tkinter import *
 from tkinter import ttk
-import hangman
+import xml.etree.ElementTree as ET
 
 
 class acceuil:
 
-    def __init__(self, player):
+    def __init__(self):
         self.window = Tk()
-        self.player = player
-        self.nom_var = StringVar()
-        self.difficulte_var = StringVar()
 
     def openWindow(self):
         self.window.title("Acceuil")
@@ -56,20 +52,36 @@ class acceuil:
 
         # ZONE DE SAISIE PSEDUO
 
-        pseudoEntry = Entry(frame_acceuilpseudo, textvariable=self.nom_var, width=50, background=None)
+        pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
         pseudoEntry.pack()
+        pseudo = pseudoEntry.get()
 
         # CHOIX DE DIFFICULTÉ
         optionsdifficulte = ["Facile", "Normal", "Difficile"]
-        listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34,
-                                       justify="center")
+        listedifficulte = ttk.Combobox(frame_acceuildifficulte, values=optionsdifficulte, background=None, width=34,justify="center")
         listedifficulte.current(0)
         listedifficulte.pack()
+
+        def selectdiff():
+            value = listedifficulte.get()
+            return value
+
+        def selectpseudo():
+            pseudoplayer = pseudoEntry.get()
+            return pseudoplayer
+
+        def creerjoueur():
+            root = ET.Element("player")
+            groupe = ET.SubElement(root, "sub-player")
+            ET.SubElement(groupe, "nomplayer").text = selectpseudo()
+            ET.SubElement(groupe, "difficulte").text = selectdiff()
+            tree1 = ET.ElementTree(root)
+            tree1.write('new.xml')
 
         # BUTTONS
         acceuil_button = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer", width=225, font=("Arial", 15),
                                 bg="white",
-                                fg="black", command=self.opengamewindow)
+                                fg="black", command=creerjoueur)
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttontop10, borderwidth=0, text="Top 10", width=225, font=("Arial", 15),
                                 bg="white", fg="black", command=self.opentop10window)
@@ -104,18 +116,20 @@ class acceuil:
 
     def opengamewindow(self):
         self.closeWindow()
-        self.player.name = self.nom_var.get()  # A recuperer avec un bouton
-        print(self.player.name)
-        game.Game(self.player).openWindow()
+        opengame()
 
-    def opentop10window(self, joueur):
+    def opentop10window(self):
         self.closeWindow()
-        top10.Top10().openWindow()
+        opentop10()
 
     def openaidewindow(self):
         self.closeWindow()
-        aide.Aide().openWindow()
+        openaide()
 
     def opengestionmots(self):
         self.closeWindow()
-        gestiondesmots.GestionMot().openWindow()
+        opengestionmot()
+
+
+main = acceuil()
+main.openWindow()
