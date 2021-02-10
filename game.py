@@ -1,7 +1,9 @@
 from tkinter import *
-from gestiondesmots import opengestionmot
-from top10 import opentop10
-from aide import openaide
+import random
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('mot.xml')
+myroot = tree.getroot()
 
 # DECLARATION DES VARIABLES
 limite_perdu = 11
@@ -38,10 +40,6 @@ def opengame():
             # Menu Page de jeu
             pendumenu = Menu(self.window)
             first_menu = Menu(pendumenu, tearoff=0)
-            first_menu.add_command(label="Acceuil")
-            first_menu.add_command(label="Top 10", command=opentop10)
-            first_menu.add_command(label="Gestion des mots", command=two_funcs(self.window.destroy, opengestionmot))
-            first_menu.add_command(label="Aide", command=openaide)
             first_menu.add_command(label="Quitter", command=self.window.destroy)
             pendumenu.add_cascade(label="Menu", menu=first_menu)
             self.window.config(menu=pendumenu)
@@ -147,7 +145,6 @@ def opengame():
                     if cpt_perdu == limite_perdu:
                         frame_clavier1.place_forget()
                         frame_clavier2.place_forget()
-                        btnretouracceuil = Button(self.window, text="Retourner à l'acceuil", command=self.open)
                         label_etape[10].place(x=610, y=210)
                         lbl["text"] = "".join(secret)
                         annonce["text"] = "Perdu !"
@@ -167,15 +164,21 @@ def opengame():
                 lbl["text"] = " ".join(mot_en_progres)
                 score(lettre)
 
-            # MOT
-            secret = "SAPINS"
+            # GENERATION MOT
+            L = []
+            for x in myroot.findall('liste'):
+                nom = x.find('mot').text
+                L.append(nom)
+                print(nom)
+            mot = random.choice(L)
+            secret = mot
             longsecret = len(secret)
             mot_en_progres = list("_" * longsecret)
             stars = " ".join(mot_en_progres)
 
             # AFFICHAGE DES LETTRES
-            lbl = Label(frame_mot, text=stars, font=("Times 15 bold", 45), background="white", fg="black")
-            lbl.place(x=80, y=220)
+            lbl = Label(frame_mot, text=stars, font=("Times 15 bold", 30), background="white", fg="black")
+            lbl.place(x=80, y=240)
 
             # AFFICHAGE DEFAITE / VICTOIRE
             annonce = Label(frame_mot, width=8, font=("Times 15 bold", 25), background="white", fg="red")
@@ -199,18 +202,6 @@ def opengame():
 
         def closeWindow(self):
             self.window.destroy()
-
-        def opengestionmots(self):
-            self.closeWindow()
-            opengestionmot()
-
-        def opentop10(self):
-            self.closeWindow()
-            opentop10()
-
-        def openaide(self):
-            self.closeWindow()
-            openaide()
 
     main = Game()
     main.openWindow()

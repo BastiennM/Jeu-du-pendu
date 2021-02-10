@@ -16,9 +16,7 @@ def two_funcs(*funcs):
 
     return two_funcs
 
-
 class Acceuil:
-
     def __init__(self):
         self.window = Tk()
 
@@ -32,16 +30,6 @@ class Acceuil:
         bg_acceuil = PhotoImage(file="img/acceuil.png")
         label_acceuil = Label(self.window, image=bg_acceuil)
         label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
-
-        # Menu acceuil
-        mainmenu = Menu(self.window)
-        first_menu = Menu(mainmenu, tearoff=0)
-        first_menu.add_command(label="Top 10", command=self.opentop10window)
-        first_menu.add_command(label="Gestion des mots", command=self.opengestionmots)
-        first_menu.add_command(label="Aide", command=self.openaidewindow)
-        first_menu.add_command(label="Quitter", command=self.closeWindow)
-        mainmenu.add_cascade(label="Menu", menu=first_menu)
-        self.window.config(menu=mainmenu)
 
         # CRÉATION FRAME
         frame_acceuilpseudo = Frame(self.window, background="white")
@@ -110,14 +98,14 @@ class Acceuil:
         acceuil_button.pack()
 
         # AFFICHAGE FRAME
-        frame_acceuiltop.place(x=30, y=10, width=960, height=115)
-        frame_acceuilbuttonplay.place(x=410, y=415, width=225, height=35)
-        frame_acceuilbuttontop10.place(x=410, y=485, width=225, height=35)
-        frame_acceuilbuttongestionmot.place(x=410, y=555, width=225, height=35)
-        frame_acceuilbuttonaide.place(x=410, y=625, width=225, height=35)
-        frame_acceuilpseudo.place(x=450, y=200, width=250)
-        frame_acceuildifficulte.place(x=450, y=270, width=250)
-        frame_acceuilbuttonquitter.place(x=790, y=670, width=70, height=35)
+        frame_acceuiltop.place(x=30, y=20, width=960, height=115)
+        frame_acceuilbuttonplay.place(x=410, y=425, width=225, height=35)
+        frame_acceuilbuttontop10.place(x=410, y=495, width=225, height=35)
+        frame_acceuilbuttongestionmot.place(x=410, y=565, width=225, height=35)
+        frame_acceuilbuttonaide.place(x=410, y=635, width=230, height=30)
+        frame_acceuilpseudo.place(x=450, y=210, width=250)
+        frame_acceuildifficulte.place(x=450, y=280, width=250)
+        frame_acceuilbuttonquitter.place(x=790, y=680, width=70, height=35)
 
         self.window.mainloop()
 
