@@ -45,7 +45,7 @@ class acceuil:
 
         # TEXTE
         label_title = Label(frame_acceuiltop, text="Bienvenue sur le jeu du", font=("Arial", 30), bg="#ccccff",
-                            fg="black")
+                           fg="black")
         label_title.pack()
         label_subtitle = Label(frame_acceuiltop, text="PENDU", font=("Courrier", 40), bg="#ccccff", fg="black")
         label_subtitle.pack()
