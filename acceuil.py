@@ -53,10 +53,18 @@ class Acceuil:
         label_subtitle = Label(frame_acceuiltop, text="PENDU", font=("Courrier", 40), bg="#ccccff", fg="black")
         label_subtitle.pack()
 
+        def toggle_state(*_):
+            if pseudoEntry.var.get():
+                acceuil_buttonplay['state'] = 'normal'
+            else:
+                acceuil_buttonplay['state'] = 'disabled'
         # ZONE DE SAISIE PSEDUO
 
         pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
         pseudoEntry.pack()
+        pseudoEntry.var = StringVar()
+        pseudoEntry['textvariable'] = pseudoEntry.var
+        pseudoEntry.var.trace_add('write', toggle_state)
 
         # CHOIX DE DIFFICULTÉ
         optionsdifficulte = ["Facile", "Normal", "Difficile"]
@@ -108,11 +116,15 @@ class Acceuil:
             # tree1 = ET.ElementTree(root)
             # tree1.write('joueur.xml')
 
+
+
+
+
         # BUTTONS
-        acceuil_button = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer", width=225, font=("Arial", 15),
-                                bg="white",
-                                fg="black", command=two_funcs(creerjoueur, self.opengamewindow))
-        acceuil_button.pack()
+        acceuil_buttonplay = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer",state='disabled', width=225, font=("Arial", 15),
+                                    bg="white",
+                                    fg="black", command=two_funcs(creerjoueur, self.opengamewindow))
+        acceuil_buttonplay.pack()
         acceuil_button = Button(frame_acceuilbuttontop10, borderwidth=0, text="Top 10", width=225, font=("Arial", 15),
                                 bg="white", fg="black", command=self.opentop10window)
         acceuil_button.pack()
