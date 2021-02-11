@@ -45,11 +45,64 @@ tree.write('new.xml')
 '''
 
 # creer un groupe
-L = ['1', '2']
+L = [
+    ['Bastien', 'a', 10],
+    ['LOL', 'b', 50],
+    ['MOI', 'c', 15]
+]
 
-new_field = ET.Element("word")
-groupe = ET.SubElement(new_field, "liste")
-for item in L:
-    ET.SubElement(groupe, "mot").text = item
-tree1 = ET.ElementTree(new_field)
-tree1.write(open('new.xml', 'wb'))
+
+# score = []
+# # cpt = 0
+# # cptscore = 1
+# # for item in L:
+# #     score.append(L[cpt][2])
+# #     cpt = cpt +1
+# # print(score)
+# # for i in range(0,len(score)-1):
+# #     maxscore = max(score)
+# #     indexmaxscore = score.index(max(score))
+# #     print("TOP ",cptscore,L[indexmaxscore-1][0],"avec ",maxscore,"points")
+# #     cptscore = cptscore + 1
+# #     L.pop(indexmaxscore)
+# #     score.pop(indexmaxscore)
+# #     if len(score) == 1:
+# #         print("TOP ",cptscore,L[indexmaxscore-1][0],"avec ",maxscore,"points")
+
+def Sort(sub_li):
+    sub_li.sort(key=lambda x: x[2])
+    return sub_li
+
+
+print(Sort(L))
+
+
+# print(score)
+# print(max(score))
+# print(score.index(max(score)))
+# L.pop(1)
+# print(L)
+
+# L2 = []
+# L2.append([])
+# L2[len(L2)-1].append('a')
+# L2[len(L2)-1].append('b')
+# print(L2)
+# print(len(L2))
+# L2.append([])
+# L2[len(L2)-1].append('c')
+# L2[len(L2)-1].append('d')
+# print(L2)
+# print(len(L2))
+
+# cpt = 0
+#
+# new_field = ET.Element("word")
+# for item in L:
+#     for i in range (0,1):
+#         groupe = ET.SubElement(new_field, "PLAYER")
+#         ET.SubElement(groupe, "joueur").text = L[cpt][0]
+#         ET.SubElement(groupe, "score").text = L[cpt][1]
+#     cpt = cpt +1
+# tree1 = ET.ElementTree(new_field)
+# tree1.write('new.xml')

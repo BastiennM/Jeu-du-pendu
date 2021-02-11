@@ -6,6 +6,10 @@ from tkinter import *
 from tkinter import ttk
 import xml.etree.ElementTree as ET
 
+tree = ET.parse('joueur.xml')
+myroot = tree.getroot()
+cptnewjoueur = 0
+
 
 # DEUX FONCTION
 
@@ -69,18 +73,45 @@ class Acceuil:
             pseudoplayer = pseudoEntry.get()
             return pseudoplayer
 
+        listejoueur = []
+        for x in myroot.findall('player'):
+            nom = x.find('joueur').text
+            diff = x.find("difficulte").text
+            score = x.find("score").text
+            listejoueur.append([])
+            listejoueur[len(listejoueur) - 1].append(nom)
+            listejoueur[len(listejoueur) - 1].append(diff)
+            listejoueur[len(listejoueur) - 1].append(score)
+
         def creerjoueur():
-            root = ET.Element("player")
-            groupe = ET.SubElement(root, "sub-player")
-            ET.SubElement(groupe, "nomplayer").text = selectpseudo()
-            ET.SubElement(groupe, "difficulte").text = selectdiff()
-            tree1 = ET.ElementTree(root)
-            tree1.write('new.xml')
+            global cptnewjoueur
+            listejoueur.append([])
+            listejoueur[len(listejoueur) - 1].append(selectpseudo())
+            listejoueur[len(listejoueur) - 1].append(selectdiff())
+            listejoueur[len(listejoueur) - 1].append(0)
+            new_field = ET.Element("PLAYER")
+            for item in listejoueur:
+                for i in range(0, 1):
+                    groupe = ET.SubElement(new_field, "player")
+                    ET.SubElement(groupe, "joueur").text = listejoueur[cptnewjoueur][0]
+                    ET.SubElement(groupe, "difficulte").text = listejoueur[cptnewjoueur][1]
+                    ET.SubElement(groupe, "score").text = listejoueur[cptnewjoueur][2]
+                cptnewjoueur = cptnewjoueur + 1
+            tree1 = ET.ElementTree(new_field)
+            tree1.write('joueur.xml')
+            # root = ET.Element("player")
+            # for item in listejoueur:
+            #     groupe = ET.SubElement(root, "sub-player")
+            #     ET.SubElement(groupe, "nomplayer").text = item
+            #     ET.SubElement(groupe, "difficulte").text = item
+            #     ET.SubElement(groupe, "score").text = item
+            # tree1 = ET.ElementTree(root)
+            # tree1.write('joueur.xml')
 
         # BUTTONS
         acceuil_button = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer", width=225, font=("Arial", 15),
                                 bg="white",
-                                fg="black", command=self.opengamewindow)
+                                fg="black", command=two_funcs(creerjoueur, self.opengamewindow))
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttontop10, borderwidth=0, text="Top 10", width=225, font=("Arial", 15),
                                 bg="white", fg="black", command=self.opentop10window)
@@ -97,15 +128,6 @@ class Acceuil:
                                 bg="white",
                                 fg="black", command=self.closeWindow)
         acceuil_button.pack()
-        '''
-        # def printtext():
-        #     print(acceuil_buttondiff['text'])
-        # 
-        # acceuil_buttondiff = Button(self.window, borderwidth=0, text="FACILE", width=225, font=("Arial", 15),
-        #                             bg="white",
-        #                             fg="black", command=printtext)
-        # acceuil_buttondiff.pack()
-        '''
 
         # AFFICHAGE FRAME
         frame_acceuiltop.place(x=30, y=20, width=960, height=115)

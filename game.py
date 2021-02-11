@@ -2,8 +2,11 @@ from tkinter import *
 import random
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('mot.xml')
-myroot = tree.getroot()
+treemot = ET.parse('mot.xml')
+rootmot = treemot.getroot()
+
+treejoueur = ET.parse('joueur.xml')
+rootjoueur = treejoueur.getroot()
 
 # DECLARATION DES VARIABLES
 limite_perdu = 11
@@ -78,16 +81,32 @@ def opengame():
             label_etape11 = Label(self.window, image=etape11, borderwidth=0)
             perdu = PhotoImage(file="img/hor-removebg-preview.png")
             label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
+            gagne = PhotoImage(file="img/victory.png")
+            label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
             label_etape = [label_etape1, label_etape2, label_etape3, label_etape4, label_etape5, label_etape6,
-                           label_etape7, label_etape8, label_etape9, label_etape10, label_etape11, label_perdu]
+                           label_etape7, label_etape8, label_etape9, label_etape10, label_etape11, label_perdu,
+                           label_gagne]
 
             # AFFICHAGE FRAME
             frame_topbanner.place(x=40, y=20, width=940, height=65)
             frame_timer.place(x=448, y=115, width=130, height=68)
 
-            # # AFFICHAGE PSEUDO
+            listejoueur = []
+
+            for x in rootjoueur.findall('player'):
+                nom = x.find('joueur').text
+                diff = x.find("difficulte").text
+                score = x.find("score").text
+                listejoueur.append([])
+                listejoueur[len(listejoueur) - 1].append(nom)
+                listejoueur[len(listejoueur) - 1].append(diff)
+                listejoueur[len(listejoueur) - 1].append(score)
+                print(listejoueur)
+
+            # AFFICHAGE PSEUDO
             # label_pseudo = Label(frame_topbanner, text="", font=("Arial", 30), bg="#ccccff", fg="black")
-            # pseudoJeu =
+            pseudoJeu = listejoueur[len(listejoueur) - 1][0]
+            print("listepourjeu", pseudoJeu)
             # label_pseudo.config(text="A toi de jouer " + pseudoJeu + " !")
             # label_pseudo.pack()
 
@@ -102,7 +121,7 @@ def opengame():
             timer.pack()
 
             # FONCTION TIMER
-            def decompte(count=20):
+            def decompte(count=120):
                 global end
                 timer.config(text=str(count))
                 if count > 0:
@@ -118,6 +137,8 @@ def opengame():
                         annonce["text"] = "Perdu !"
                         label_etape[11].place(x=640, y=230)
                         scorefinal()
+                        frame_clavier1.place_forget()
+                        frame_clavier2.place_forget()
 
             def lancerjeu():
                 frame_clavier1.place(x=80, y=570, width=900, height=70)
@@ -137,6 +158,7 @@ def opengame():
                         mot_en_progres[i] = lettre
                         if mot_en_progres == list(secret):
                             annonce["text"] = "Gagné !"
+                            label_etape[12].place(x=700, y=210)
 
             # FONCTION GAGNE PERDU
             def score(lettre):
@@ -147,13 +169,14 @@ def opengame():
                     if cpt_perdu == limite_perdu:
                         frame_clavier1.place_forget()
                         frame_clavier2.place_forget()
-                        label_etape[10].place(x=610, y=210)
+                        label_etape[11].place(x=670, y=210)
                         lbl["text"] = "".join(secret)
                         annonce["text"] = "Perdu !"
                         end = True
                         scorefinal()
                 elif mot_en_progres == list(secret):
                     annonce["text"] = "Gagné !"
+                    label_etape[12].place(x=670, y=210)
                     end = True
                     frame_clavier1.place_forget()
                     frame_clavier2.place_forget()
@@ -173,7 +196,7 @@ def opengame():
 
             # GENERATION MOT
             L = []
-            for x in myroot.findall('liste'):
+            for x in rootmot.findall('liste'):
                 nom = x.find('mot').text
                 L.append(nom)
                 print(nom)
@@ -190,10 +213,12 @@ def opengame():
                     pointlenmot = longsecret
                     pointbonusdiff = 5
                     calculscorefinal = pointnbcoup + pointlenmot + pointbonusdiff
-                    labelscorefinal1 = Label(self.window, text="Votre score final est de :", font=("Times 15 bold", 30),bg="#ccccff", fg="black")
-                    labelscorefinal1.place(x=100, y=570)
-                    labelscorefinal2 = Label(self.window, text=calculscorefinal, font=("Times 15 bold", 30),bg="#ccccff", fg="black")
-                    labelscorefinal2.place(x=100, y=600)
+                    labelscorefinal1 = Label(self.window, text="Votre score final est de :", font=("Times 15 bold", 30),
+                                             bg="#ccccff", fg="black")
+                    labelscorefinal1.place(x=240, y=620)
+                    labelscorefinal2 = Label(self.window, text=calculscorefinal, font=("Times 15 bold", 30),
+                                             bg="#ccccff", fg="black")
+                    labelscorefinal2.place(x=680, y=620)
                     return calculscorefinal
 
             # AFFICHAGE DES LETTRES

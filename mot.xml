@@ -1,2 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<word><liste><mot>BONJOUR</mot></liste><liste><mot>AUREVOIR</mot></liste><liste><mot>LAPIN</mot></liste><liste><mot>LAMPE</mot></liste><liste><mot>A</mot></liste><liste><mot>TER</mot></liste></word>
+<word>
+    <liste>
+        <mot>TER</mot>
+    </liste>
+    <liste>
+        <mot>LAPIN</mot>
+    </liste>
+    <liste>
+        <mot>VOITURE</mot>
+    </liste>
+    <liste>
+        <mot>CHARIOT</mot>
+    </liste>
+    <liste>
+        <mot>CHAMBRE</mot>
+    </liste>
+</word>

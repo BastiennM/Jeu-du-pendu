@@ -1,5 +1,10 @@
 from tkinter import *
 from aide import openaide
+import xml.etree.ElementTree as ET
+
+treejoueur = ET.parse('joueur.xml')
+rootjoueur = treejoueur.getroot()
+cptinsert = 0
 
 
 # DEUX FONCTION
@@ -7,7 +12,9 @@ def two_funcs(*funcs):
     def two_funcs(*args, **kwargs):
         for f in funcs:
             f(*args, **kwargs)
+
     return two_funcs
+
 
 def opentop10():
     class top10:
@@ -21,12 +28,39 @@ def opentop10():
             self.window.iconbitmap("img/logo.ico")
             self.window.config(background='#f9791e')
 
-            # Menu Page de top 10
-            pendumenu = Menu(self.window)
-            first_menu = Menu(pendumenu, tearoff=0)
-            first_menu.add_command(label="Quitter", command=self.window.destroy)
-            pendumenu.add_cascade(label="Menu", menu=first_menu)
-            self.window.config(menu=pendumenu)
+            listejoueur = []
+            for x in rootjoueur.findall('player'):
+                nom = x.find('joueur').text
+                diff = x.find("difficulte").text
+                score = x.find("score").text
+                score = int(score)
+                listejoueur.append([])
+                listejoueur[len(listejoueur) - 1].append(nom)
+                listejoueur[len(listejoueur) - 1].append(diff)
+                listejoueur[len(listejoueur) - 1].append(score)
+            print(listejoueur)
+
+            def Sort(sub_li):
+                sub_li.sort(key=lambda x: x[2])
+                return sub_li
+
+            # create frame and scrollbar
+            frame_scrollist = Frame(self.window)
+            scrollbar = Scrollbar(frame_scrollist, orient=VERTICAL)
+            listbox = Listbox(frame_scrollist, width=50, yscrollcommand=scrollbar.set)
+
+            # CONFIGURE SCROLLBAR
+            scrollbar.config(command=listbox.yview)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            frame_scrollist.pack()
+            listbox.pack(pady=15)
+
+            Sort(listejoueur)
+            print(listejoueur)
+            for item in listejoueur:
+                global cptinsert
+                listbox.insert(0, listejoueur[cptinsert])
+                cptinsert = cptinsert + 1
 
     main = top10()
     main.openWindow()

@@ -1,1 +1,14 @@
-<word><liste><mot>1</mot><mot>2</mot></liste></word>
+<word>
+    <PLAYER>
+        <joueur>Bastien</joueur>
+        <score>15</score>
+    </PLAYER>
+    <PLAYER>
+        <joueur>LOL</joueur>
+        <score>15</score>
+    </PLAYER>
+    <PLAYER>
+        <joueur>MOI</joueur>
+        <score>15</score>
+    </PLAYER>
+</word>

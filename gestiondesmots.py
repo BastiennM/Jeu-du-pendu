@@ -29,7 +29,6 @@ def opengestionmot():
             for x in myroot.findall('liste'):
                 nom = x.find('mot').text
                 L.append(nom)
-            print(L)
             # create frame and scrollbar
             frame_scrollist = Frame(self.window)
             scrollbar = Scrollbar(frame_scrollist, orient=VERTICAL)
