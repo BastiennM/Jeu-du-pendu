@@ -10,6 +10,7 @@ limite_perdu = 11
 end = False
 cpt_perdu = 0
 nro = 0
+diff = "facile"
 
 
 # DEUX FONCTION
@@ -101,21 +102,22 @@ def opengame():
             timer.pack()
 
             # FONCTION TIMER
-            def decompte(count=200):
+            def decompte(count=20):
                 global end
                 timer.config(text=str(count))
                 if count > 0:
-                    end = False
                     frame_timer.after(1000, decompte, count - 1, )
                     btn_timer["state"] = DISABLED
                 if count <= 0:
-                    label_perduhorloge = Label(self.window, text="Temps écoulé, vous avez perdu !!",
-                                               font=("Courrier", 15), bg="white")
-                    label_perduhorloge.place(x=640, y=180)
-                    end = True
-                    lbl["text"] = "".join(secret)
-                    annonce["text"] = "Perdu !"
-                    label_etape[11].place(x=640, y=230)
+                    if not end:
+                        label_perduhorloge = Label(self.window, text="Temps écoulé, vous avez perdu !!",
+                                                   font=("Courrier", 15), bg="white")
+                        label_perduhorloge.place(x=640, y=180)
+                        end = True
+                        lbl["text"] = "".join(secret)
+                        annonce["text"] = "Perdu !"
+                        label_etape[11].place(x=640, y=230)
+                        scorefinal()
 
             def lancerjeu():
                 frame_clavier1.place(x=80, y=570, width=900, height=70)
@@ -136,7 +138,7 @@ def opengame():
                         if mot_en_progres == list(secret):
                             annonce["text"] = "Gagné !"
 
-            # FONCTION SCORE
+            # FONCTION GAGNE PERDU
             def score(lettre):
                 global cpt_perdu, end
                 if lettre not in secret:
@@ -149,9 +151,14 @@ def opengame():
                         lbl["text"] = "".join(secret)
                         annonce["text"] = "Perdu !"
                         end = True
+                        scorefinal()
                 elif mot_en_progres == list(secret):
                     annonce["text"] = "Gagné !"
                     end = True
+                    frame_clavier1.place_forget()
+                    frame_clavier2.place_forget()
+                    scorefinal()
+                return cpt_perdu
 
             # FONCTIONS RECUP LETTRE
             def choisir_lettre(event):
@@ -170,11 +177,24 @@ def opengame():
                 nom = x.find('mot').text
                 L.append(nom)
                 print(nom)
-            mot = random.choice(L)
-            secret = mot
+            secret = random.choice(L)
             longsecret = len(secret)
             mot_en_progres = list("_" * longsecret)
             stars = " ".join(mot_en_progres)
+
+            # FONCTION SCORE FINAL
+            def scorefinal():
+                global end
+                if end:
+                    pointnbcoup = limite_perdu - cpt_perdu
+                    pointlenmot = longsecret
+                    pointbonusdiff = 5
+                    calculscorefinal = pointnbcoup + pointlenmot + pointbonusdiff
+                    labelscorefinal1 = Label(self.window, text="Votre score final est de :", font=("Times 15 bold", 30),bg="#ccccff", fg="black")
+                    labelscorefinal1.place(x=100, y=570)
+                    labelscorefinal2 = Label(self.window, text=calculscorefinal, font=("Times 15 bold", 30),bg="#ccccff", fg="black")
+                    labelscorefinal2.place(x=100, y=600)
+                    return calculscorefinal
 
             # AFFICHAGE DES LETTRES
             lbl = Label(frame_mot, text=stars, font=("Times 15 bold", 30), background="white", fg="black")
@@ -184,7 +204,7 @@ def opengame():
             annonce = Label(frame_mot, width=8, font=("Times 15 bold", 25), background="white", fg="red")
             annonce.place(x=80, y=150)
 
-            # CREATION ET AFFICHAGE CLAVIER => Jouer avec le style du bouton (relief) + la couleur lorsque il est cliqué (présent ou non dans le mot)
+            # CREATION ET AFFICHAGE CLAVIER
             ALPHA = "ABCDEFGHIJQLMNO"
             BETA = "PQRSTUVWXYZ"
 

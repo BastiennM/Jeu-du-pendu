@@ -16,6 +16,7 @@ def two_funcs(*funcs):
 
     return two_funcs
 
+
 class Acceuil:
     def __init__(self):
         self.window = Tk()
@@ -96,6 +97,15 @@ class Acceuil:
                                 bg="white",
                                 fg="black", command=self.closeWindow)
         acceuil_button.pack()
+        '''
+        # def printtext():
+        #     print(acceuil_buttondiff['text'])
+        # 
+        # acceuil_buttondiff = Button(self.window, borderwidth=0, text="FACILE", width=225, font=("Arial", 15),
+        #                             bg="white",
+        #                             fg="black", command=printtext)
+        # acceuil_buttondiff.pack()
+        '''
 
         # AFFICHAGE FRAME
         frame_acceuiltop.place(x=30, y=20, width=960, height=115)
