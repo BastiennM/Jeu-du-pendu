@@ -1,8 +1,9 @@
-import xml.etree.ElementTree as ET
-
-tree = ET.parse('new.xml')
-myroot = tree.getroot()
-# PRINT NOM
+# import xml.etree.ElementTree as ET
+#
+# tree = ET.parse('new.xml')
+# myroot = tree.getroot()
+# # PRINT NOM
+import unicodedata
 '''
 for x in myroot.findall('sub-player'):
     nom = x.find('nomplayer').text
@@ -43,13 +44,13 @@ tree.write('new.xml')
 myroot[0].clear()
 tree.write('new.xml')
 '''
-
-# creer un groupe
-L = [
-    ['Bastien', 'a', 10],
-    ['LOL', 'b', 50],
-    ['MOI', 'c', 15]
-]
+#
+# # creer un groupe
+# L = [
+#     ['Bastien', 'a', 10],
+#     ['LOL', 'b', 50],
+#     ['MOI', 'c', 15]
+# ]
 
 
 # score = []
@@ -68,13 +69,13 @@ L = [
 # #     score.pop(indexmaxscore)
 # #     if len(score) == 1:
 # #         print("TOP ",cptscore,L[indexmaxscore-1][0],"avec ",maxscore,"points")
-
-def Sort(sub_li):
-    sub_li.sort(key=lambda x: x[2])
-    return sub_li
-
-
-print(Sort(L))
+#
+# def Sort(sub_li):
+#     sub_li.sort(key=lambda x: x[2])
+#     return sub_li
+#
+#
+# print(Sort(L))
 
 
 # print(score)
@@ -106,3 +107,9 @@ print(Sort(L))
 #     cpt = cpt +1
 # tree1 = ET.ElementTree(new_field)
 # tree1.write('new.xml')
+
+mot = "été!"
+mot_no_accents = ''.join((c for c in unicodedata.normalize('NFD', mot) if unicodedata.category(c) != 'Mn'))
+string = mot_no_accents
+mot_no_special = ''.join(e for e in string if e.isalnum())
+print(mot_no_special)

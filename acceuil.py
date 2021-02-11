@@ -107,18 +107,6 @@ class Acceuil:
                 cptnewjoueur = cptnewjoueur + 1
             tree1 = ET.ElementTree(new_field)
             tree1.write('joueur.xml')
-            # root = ET.Element("player")
-            # for item in listejoueur:
-            #     groupe = ET.SubElement(root, "sub-player")
-            #     ET.SubElement(groupe, "nomplayer").text = item
-            #     ET.SubElement(groupe, "difficulte").text = item
-            #     ET.SubElement(groupe, "score").text = item
-            # tree1 = ET.ElementTree(root)
-            # tree1.write('joueur.xml')
-
-
-
-
 
         # BUTTONS
         acceuil_buttonplay = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer",state='disabled', width=225, font=("Arial", 15),

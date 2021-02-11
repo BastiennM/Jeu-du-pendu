@@ -1,5 +1,6 @@
 from tkinter import *
 import xml.etree.ElementTree as ET
+import unicodedata
 
 tree = ET.parse('mot.xml')
 myroot = tree.getroot()
@@ -59,10 +60,10 @@ def opengestionmot():
             def add():
                 content = newword.get()
                 content = content.upper()
-                print(content)
-                print(L)
-                listbox.insert(END, content)
-                L.append(content)
+                content_no_accents = ''.join((c for c in unicodedata.normalize('NFD', content) if unicodedata.category(c) != 'Mn'))
+                content_no_special = ''.join(e for e in content_no_accents if e.isalnum())
+                listbox.insert(END, content_no_special)
+                L.append(content_no_special)
                 print(L)
                 new_field = ET.Element("word")
                 for item in L:
