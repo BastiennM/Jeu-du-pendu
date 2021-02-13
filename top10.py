@@ -1,7 +1,11 @@
 from tkinter import *
 import xml.etree.ElementTree as ET
+from tkinter import ttk
+import aide
+import acceuil
+import gestiondesmots
 
-treejoueur = ET.parse('joueur.xml')
+treejoueur = ET.parse('xml/joueur.xml')
 rootjoueur = treejoueur.getroot()
 cptinsert = 0
 
@@ -16,8 +20,10 @@ def two_funcs(*funcs):
 
 
 class Top10:
-    def __init__(self):
-        self.window = Tk()
+    def __init__(self, rootwindow, joueur):
+        self.window = Toplevel(rootwindow)
+        self.rootwindow = rootwindow
+        self.joueur = joueur
 
     def openWindow(self):
         self.window.title("Top 10")
@@ -25,6 +31,16 @@ class Top10:
         self.window.minsize(480, 360)
         self.window.iconbitmap("img/logo.ico")
         self.window.config(background='#f9791e')
+
+        # Menu Page de jeu
+        pendumenu = Menu(self.window)
+        first_menu = Menu(pendumenu, tearoff=0)
+        first_menu.add_command(label="Quitter", command=self.window.destroy)
+        first_menu.add_command(label="Acceuil", command=self.openacceuil)
+        first_menu.add_command(label="Aide", command=self.openaidewindow)
+        first_menu.add_command(label="Gestion des mots", command=self.opengestionmots)
+        pendumenu.add_cascade(label="Menu", menu=first_menu)
+        self.window.config(menu=pendumenu)
 
         # Remplissage de la liste avec toute les infos joueurs
         joueurliste = []
@@ -40,10 +56,8 @@ class Top10:
         listedifffacile = list(filter(lambda x: x['difficulte'] == b'Facile', joueurliste))
         joueurlistetriefacile = sorted(listedifffacile, reverse=False, key=lambda i: i['score'])
 
-
         listediffdifficile = list(filter(lambda x: x['difficulte'] == b'Difficile', joueurliste))
         joueurlistetriedifficile = sorted(listediffdifficile, reverse=True, key=lambda i: i['score'])
-
 
         # for x in rootjoueur.findall('player'):
         #     nom = x.find('joueur').text
@@ -59,20 +73,59 @@ class Top10:
         #     sub_li.sort(key=lambda x: x[2])
         #     return sub_li
 
-        # create frame and scrollbar
-        frame_scrollist = Frame(self.window)
-        scrollbar = Scrollbar(frame_scrollist, orient=VERTICAL)
-        listbox = Listbox(frame_scrollist, width=50, yscrollcommand=scrollbar.set)
+        frametop10 = Frame(self.window)
+        frametop10.pack(pady=20)
+        treescroll = Scrollbar(frametop10)
+        treescroll.pack(side=RIGHT, fill=Y)
+
+        # DEFINIR LE TABLEAU
+        Tableau = ttk.Treeview(frametop10, yscrollcommand=treescroll.set)
+        # vsb = Scrollbar(self.window, orient="vertical", command=Tableau.yview)
+        # vsb.pack(side='right', fill='y')
+        # Tableau.configure(yscrollcommand=vsb.set)
 
         # CONFIGURE SCROLLBAR
-        scrollbar.config(command=listbox.yview)
-        scrollbar.pack(side=RIGHT, fill=Y)
-        frame_scrollist.pack()
-        listbox.pack(pady=15)
+        treescroll.config(command=Tableau.yview)
 
+        # DEFINIR LES COLONNES
+        Tableau['columns'] = ('Pseudo', 'Score')
+
+        # FORMATER LES COLONNES
+        Tableau.column("#0", width=120, minwidth=25)
+        Tableau.column('Pseudo', anchor=CENTER, width=80)
+        Tableau.column('Score', anchor=W, width=120)
+
+        # CREER HEADER
+        Tableau.heading('#0', text="Niveau", anchor=W)
+        Tableau.heading('Pseudo', text="Pseudo", anchor=W)
+        Tableau.heading('Score', text="Score", anchor=W)
+
+        # AJOUTER LES DONNÉES
+        # Tableau.insert(parent='', index='end', iid=0, text='Facile', values=('Yann', 15))
+        # Tableau.pack()
+
+        nivparent = Tableau.insert(parent='', index='end', text='Facile')
         for key, value in zip(range(10), joueurlistetriefacile):
-            print(key, value)
-        for item in joueurlistetriefacile:
-            global cptinsert
-            listbox.insert(0, (joueurlistetriefacile[cptinsert]))
-            cptinsert = cptinsert + 1
+            Tableau.insert(parent=nivparent, index='end', text='',
+                           values=(value['pseudo'].decode('UTF-8'), int(value['score'])))
+        nivparent = Tableau.insert(parent='', index='end', text='Moyen')
+        for key, value in zip(range(10), joueurlistetrienormal):
+            Tableau.insert(parent=nivparent, index='end', text='',
+                           values=(value['pseudo'].decode('UTF-8'), int(value['score'])))
+        nivparent = Tableau.insert(parent='', index='end', text='Difficile')
+        for key, value in zip(range(10), joueurlistetriedifficile):
+            Tableau.insert(parent=nivparent, index='end', text='',
+                           values=(value['pseudo'].decode('UTF-8'), int(value['score'])))
+        Tableau.pack()
+
+    def openacceuil(self):
+        self.window.destroy()
+        acceuil.Acceuil(self.rootwindow, self.joueur).openWindow()
+
+    def openaidewindow(self):
+        self.window.destroy()
+        aide.Aide(self.rootwindow, self.joueur).openWindow()
+
+    def opengestionmots(self):
+        self.window.destroy()
+        gestiondesmots.Gestionmot(self.rootwindow, self.joueur).openWindow()

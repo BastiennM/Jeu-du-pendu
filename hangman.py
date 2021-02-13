@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import random
 
-xml_mot = ET.parse('mot.xml')
+xml_mot = ET.parse('xml/mot.xml')
 root_mot = xml_mot.getroot()
 
 

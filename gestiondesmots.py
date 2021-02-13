@@ -1,14 +1,19 @@
 from tkinter import *
 import xml.etree.ElementTree as ET
 import unicodedata
+import acceuil
+import top10
+import aide
 
-tree = ET.parse('mot.xml')
+tree = ET.parse('xml/mot.xml')
 myroot = tree.getroot()
 
 
 class Gestionmot:
-    def __init__(self):
-        self.window = Tk()
+    def __init__(self, rootwindow, joueur):
+        self.window = Toplevel(rootwindow)
+        self.rootwindow = rootwindow
+        self.joueur = joueur
 
     def openWindow(self):
         self.window.title("Gestion Mot")
@@ -17,17 +22,21 @@ class Gestionmot:
         self.window.iconbitmap("img/logo.ico")
         self.window.config(background='#f9791e')
 
-        # Menu Page aide
+        # Menu Page de jeu
         pendumenu = Menu(self.window)
         first_menu = Menu(pendumenu, tearoff=0)
         first_menu.add_command(label="Quitter", command=self.window.destroy)
-        pendumenu.add_cascade(label="Menu")
+        first_menu.add_command(label="Acceuil", command=self.openacceuil)
+        first_menu.add_command(label="Top 10", command=self.opentop10window)
+        first_menu.add_command(label="Aide", command=self.openaidewindow)
+        pendumenu.add_cascade(label="Menu", menu=first_menu)
         self.window.config(menu=pendumenu)
 
         # CREATION LISTE MOT
         L = []
-        for x in myroot.findall('liste'):
-            nom = x.find('mot').text
+        for x in myroot.findall('mot'):
+            nom = x.text
+            print(nom)
             L.append(nom)
         # create frame and scrollbar
         frame_scrollist = Frame(self.window)
@@ -48,12 +57,11 @@ class Gestionmot:
         def delete():
             elementsupp = listbox.get(listbox.curselection())
             L.remove(elementsupp)
-            new_field = ET.Element("word")
+            new_field = ET.Element("words")
             for item in L:
-                groupe = ET.SubElement(new_field, "liste")
-                ET.SubElement(groupe, "mot").text = item
+                ET.SubElement(new_field, "mot").text = item
             tree1 = ET.ElementTree(new_field)
-            tree1.write('mot.xml', encoding='utf-8', xml_declaration=True)
+            tree1.write('xml/mot.xml', encoding='utf-8', xml_declaration=True)
             listbox.delete(ANCHOR)
 
         def add():
@@ -63,13 +71,11 @@ class Gestionmot:
             content_no_special = ''.join(e for e in content_no_accents if e.isalnum())
             listbox.insert(END, content_no_special)
             L.append(content_no_special)
-            print(L)
-            new_field = ET.Element("word")
+            new_field = ET.Element("words")
             for item in L:
-                groupe = ET.SubElement(new_field, "liste")
-                ET.SubElement(groupe, "mot").text = item
+                ET.SubElement(new_field, "mot").text = item
             tree1 = ET.ElementTree(new_field)
-            tree1.write('mot.xml', encoding='utf-8', xml_declaration=True)
+            tree1.write('xml/mot.xml', encoding='utf-8', xml_declaration=True)
 
         # NOUVEAU MOT
         newword = Entry(self.window,width=50, background=None)
@@ -79,3 +85,15 @@ class Gestionmot:
         # DELETE
         btndelete = Button(self.window, text="Delete", command=delete)
         btndelete.pack()
+
+    def opentop10window(self):
+        self.window.destroy()
+        top10.Top10(self.rootwindow, self.joueur).openWindow()
+
+    def openaidewindow(self):
+        self.window.destroy()
+        aide.Aide(self.rootwindow, self.joueur).openWindow()
+
+    def openacceuil(self):
+        self.window.destroy()
+        acceuil.Acceuil(self.rootwindow, self.joueur).openWindow()

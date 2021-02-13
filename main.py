@@ -1,6 +1,10 @@
 import acceuil
 from player import Joueur
+import tkinter as tk
 
 if __name__ == "__main__":
+    rootWindow = tk.Tk()
+    rootWindow.withdraw()
     joueur = Joueur()
-    acceuil.Acceuil(joueur).openWindow()
+    acceuil.Acceuil(rootWindow,joueur).openWindow()
+

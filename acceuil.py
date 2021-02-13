@@ -5,10 +5,9 @@ import gestiondesmots
 from tkinter import *
 from tkinter import ttk
 import xml.etree.ElementTree as ET
-import dumper
 
 
-tree = ET.parse('joueur.xml')
+tree = ET.parse('xml/joueur.xml')
 myroot = tree.getroot()
 cptnewjoueur = 0
 
@@ -24,20 +23,22 @@ def two_funcs(*funcs):
 
 
 class Acceuil:
-    def __init__(self, joueur):
-        self.window = Tk()
+    def __init__(self,rootwindow,joueur):
+        self.rootwindow=rootwindow
+        self.window = Toplevel(rootwindow)
         self.joueur = joueur
 
     def openWindow(self):
+        bg_acceuil = PhotoImage(file="img/acceuil.png")
+        label_acceuil = Label(self.window, image=bg_acceuil)
+        label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
         self.window.title("Acceuil")
         self.window.geometry("1024x768")
         self.window.minsize(1024, 768)
         self.window.maxsize(1024, 768)
         self.window.iconbitmap("img/logo.ico")
         self.window.resizable(False, False)
-        bg_acceuil = PhotoImage(file="img/acceuil.png")
-        label_acceuil = Label(self.window, image=bg_acceuil)
-        label_acceuil.place(x=0, y=0, relwidth=1, relheight=1)
+
 
         # CRÉATION FRAME
         frame_acceuilpseudo = Frame(self.window, background="white")
@@ -117,7 +118,7 @@ class Acceuil:
         acceuil_button = Button(frame_acceuilbuttonquitter, borderwidth=0, text="Quitter", width=225,
                                 font=("Arial", 15),
                                 bg="white",
-                                fg="black", command=self.closeWindow)
+                                fg="black", command=self.window.destroy)
         acceuil_button.pack()
 
         # AFFICHAGE FRAME
@@ -132,25 +133,18 @@ class Acceuil:
 
         self.window.mainloop()
 
-    def closeWindow(self):
-        self.window.destroy()
-
     def opengamewindow(self):
-        self.closeWindow()
-        opengame = game.Game(self.joueur)
-        opengame.openWindow()
+        self.window.destroy()
+        game.Game(self.rootwindow,self.joueur).openWindow()
 
     def opentop10window(self):
-        self.closeWindow()
-        opentop10 = top10.Top10()
-        opentop10.openWindow()
+        self.window.destroy()
+        top10.Top10(self.rootwindow, self.joueur).openWindow()
 
     def openaidewindow(self):
-        self.closeWindow()
-        openaide = aide.Aide()
-        openaide.openWindow()
+        self.window.destroy()
+        aide.Aide(self.rootwindow, self.joueur).openWindow()
 
     def opengestionmots(self):
-        self.closeWindow()
-        opengestion = gestiondesmots.Gestionmot()
-        opengestion.openWindow()
+        self.window.destroy()
+        gestiondesmots.Gestionmot(self.rootwindow,self.joueur).openWindow()
