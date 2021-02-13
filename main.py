@@ -1,5 +1,6 @@
 import acceuil
+from player import Joueur
 
 if __name__ == "__main__":
-    # execute only if run as a script
-    acceuil.Acceuil()
+    joueur = Joueur()
+    acceuil.Acceuil(joueur).openWindow()
