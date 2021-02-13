@@ -1,7 +1,7 @@
 from tkinter import *
-import random
 import xml.etree.ElementTree as ET
 from hangman import HangMan
+import dumper
 
 treemot = ET.parse('mot.xml')
 rootmot = treemot.getroot()
@@ -29,7 +29,9 @@ class Game:
     def __init__(self, joueur):
         self.window = Tk()
         self.joueur = joueur
-        self.hangman = HangMan()
+        self.hangman = HangMan(self.joueur.difficulte)
+        print(self.hangman.motadecouvrir)
+        print(self.hangman.longueurmot)
 
     def openWindow(self):
         self.window.title("Jeu du pendu")
@@ -45,90 +47,93 @@ class Game:
         # FONCTION POINT BONUS / LIMITE DE COUP / ET AFFICHAGE SELON DIFFICULTE
         diff = self.joueur.difficulte
         print(diff)
-        if diff == b"Facile":
-            pointbonusdiff = 5
-            limite_perdu = 11
-            etape1 = PhotoImage(file="img/etape1.png")
-            label_etape1 = Label(self.window, image=etape1, borderwidth=0)
-            etape2 = PhotoImage(file="img/etape2.png")
-            label_etape2 = Label(self.window, image=etape2, borderwidth=0)
-            etape3 = PhotoImage(file="img/etape3.png")
-            label_etape3 = Label(self.window, image=etape3, borderwidth=0)
-            etape4 = PhotoImage(file="img/etape4.png")
-            label_etape4 = Label(self.window, image=etape4, borderwidth=0)
-            etape5 = PhotoImage(file="img/etape5.png")
-            label_etape5 = Label(self.window, image=etape5, borderwidth=0)
-            etape6 = PhotoImage(file="img/etape6.png")
-            label_etape6 = Label(self.window, image=etape6, borderwidth=0)
-            etape7 = PhotoImage(file="img/etape7.png")
-            label_etape7 = Label(self.window, image=etape7, borderwidth=0)
-            etape8 = PhotoImage(file="img/etape8.png")
-            label_etape8 = Label(self.window, image=etape8, borderwidth=0)
-            etape9 = PhotoImage(file="img/etape9.png")
-            label_etape9 = Label(self.window, image=etape9, borderwidth=0)
-            etape10 = PhotoImage(file="img/etape10.png")
-            label_etape10 = Label(self.window, image=etape10, borderwidth=0)
-            etape11 = PhotoImage(file="img/etape11.png")
-            label_etape11 = Label(self.window, image=etape11, borderwidth=0)
-            perdu = PhotoImage(file="img/hor-removebg-preview.png")
-            label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
-            gagne = PhotoImage(file="img/victory.png")
-            label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
-            label_etape = [label_etape1, label_etape2, label_etape3, label_etape4, label_etape5, label_etape6,
-                           label_etape7, label_etape8, label_etape9, label_etape10, label_etape11, label_perdu,
-                           label_gagne]
-        if diff == "Moyen":
-            pointbonusdiff = 10
-            limite_perdu = 9
-            etape1 = PhotoImage(file="img/etape3.png")
-            label_etape1 = Label(self.window, image=etape1, borderwidth=0)
-            etape2 = PhotoImage(file="img/etape4.png")
-            label_etape2 = Label(self.window, image=etape2, borderwidth=0)
-            etape3 = PhotoImage(file="img/etape5.png")
-            label_etape3 = Label(self.window, image=etape3, borderwidth=0)
-            etape4 = PhotoImage(file="img/etape6.png")
-            label_etape4 = Label(self.window, image=etape4, borderwidth=0)
-            etape5 = PhotoImage(file="img/etape7.png")
-            label_etape5 = Label(self.window, image=etape5, borderwidth=0)
-            etape6 = PhotoImage(file="img/etape8.png")
-            label_etape6 = Label(self.window, image=etape6, borderwidth=0)
-            etape7 = PhotoImage(file="img/etape9.png")
-            label_etape7 = Label(self.window, image=etape7, borderwidth=0)
-            etape8 = PhotoImage(file="img/etape10.png")
-            label_etape8 = Label(self.window, image=etape8, borderwidth=0)
-            etape9 = PhotoImage(file="img/etape11.png")
-            label_etape9 = Label(self.window, image=etape9, borderwidth=0)
-            perdu = PhotoImage(file="img/hor-removebg-preview.png")
-            label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
-            gagne = PhotoImage(file="img/victory.png")
-            label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
-            label_etape = [label_etape1,label_etape2,label_etape3, label_etape4, label_etape5, label_etape6,
-                           label_etape7, label_etape8, label_etape9, label_perdu,
-                           label_gagne]
-        if diff == "Difficile":
-            pointbonusdiff = 15
-            limite_perdu = 7
-            etape1 = PhotoImage(file="img/etape5.png")
-            label_etape1 = Label(self.window, image=etape1, borderwidth=0)
-            etape2 = PhotoImage(file="img/etape6.png")
-            label_etape2 = Label(self.window, image=etape2, borderwidth=0)
-            etape3 = PhotoImage(file="img/etape7.png")
-            label_etape3 = Label(self.window, image=etape3, borderwidth=0)
-            etape4 = PhotoImage(file="img/etape8.png")
-            label_etape4 = Label(self.window, image=etape4, borderwidth=0)
-            etape5 = PhotoImage(file="img/etape9.png")
-            label_etape5 = Label(self.window, image=etape5, borderwidth=0)
-            etape6 = PhotoImage(file="img/etape10.png")
-            label_etape6 = Label(self.window, image=etape6, borderwidth=0)
-            etape7 = PhotoImage(file="img/etape11.png")
-            label_etape7 = Label(self.window, image=etape7, borderwidth=0)
-            perdu = PhotoImage(file="img/hor-removebg-preview.png")
-            label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
-            gagne = PhotoImage(file="img/victory.png")
-            label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
-            label_etape = [label_etape1,label_etape2,label_etape3, label_etape4, label_etape5, label_etape6,
-                           label_etape7, label_perdu,
-                           label_gagne]
+        label_jeu=[]
+        for etape in range(1,self.hangman.nombressaimax):
+            label_jeu.append(Label(self.window,image=PhotoImage(file="img/etape"+str(etape)+".png"),borderwidth=0))
+        perdu = PhotoImage(file="img/hor-removebg-preview.png")
+        label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
+        label_jeu.append(label_perdu)
+        gagne = PhotoImage(file="img/victory.png")
+        label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
+        label_jeu.append(label_gagne)
+        # if diff == 0:
+        #     etape1 = PhotoImage(file="img/etape1.png")
+        #     label_etape1 = Label(self.window, image=etape1, borderwidth=0)
+        #     etape2 = PhotoImage(file="img/etape2.png")
+        #     label_etape2 = Label(self.window, image=etape2, borderwidth=0)
+        #     etape3 = PhotoImage(file="img/etape3.png")
+        #     label_etape3 = Label(self.window, image=etape3, borderwidth=0)
+        #     etape4 = PhotoImage(file="img/etape4.png")
+        #     label_etape4 = Label(self.window, image=etape4, borderwidth=0)
+        #     etape5 = PhotoImage(file="img/etape5.png")
+        #     label_etape5 = Label(self.window, image=etape5, borderwidth=0)
+        #     etape6 = PhotoImage(file="img/etape6.png")
+        #     label_etape6 = Label(self.window, image=etape6, borderwidth=0)
+        #     etape7 = PhotoImage(file="img/etape7.png")
+        #     label_etape7 = Label(self.window, image=etape7, borderwidth=0)
+        #     etape8 = PhotoImage(file="img/etape8.png")
+        #     label_etape8 = Label(self.window, image=etape8, borderwidth=0)
+        #     etape9 = PhotoImage(file="img/etape9.png")
+        #     label_etape9 = Label(self.window, image=etape9, borderwidth=0)
+        #     etape10 = PhotoImage(file="img/etape10.png")
+        #     label_etape10 = Label(self.window, image=etape10, borderwidth=0)
+        #     etape11 = PhotoImage(file="img/etape11.png")
+        #     label_etape11 = Label(self.window, image=etape11, borderwidth=0)
+        #     perdu = PhotoImage(file="img/hor-removebg-preview.png")
+        #     label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
+        #     gagne = PhotoImage(file="img/victory.png")
+        #     label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
+        #     label_etape = [label_etape1, label_etape2, label_etape3, label_etape4, label_etape5, label_etape6,
+        #                    label_etape7, label_etape8, label_etape9, label_etape10, label_etape11, label_perdu,
+        #                    label_gagne]
+        # if diff == 1:
+        #     etape1 = PhotoImage(file="img/etape3.png")
+        #     label_etape1 = Label(self.window, image=etape1, borderwidth=0)
+        #     etape2 = PhotoImage(file="img/etape4.png")
+        #     label_etape2 = Label(self.window, image=etape2, borderwidth=0)
+        #     etape3 = PhotoImage(file="img/etape5.png")
+        #     label_etape3 = Label(self.window, image=etape3, borderwidth=0)
+        #     etape4 = PhotoImage(file="img/etape6.png")
+        #     label_etape4 = Label(self.window, image=etape4, borderwidth=0)
+        #     etape5 = PhotoImage(file="img/etape7.png")
+        #     label_etape5 = Label(self.window, image=etape5, borderwidth=0)
+        #     etape6 = PhotoImage(file="img/etape8.png")
+        #     label_etape6 = Label(self.window, image=etape6, borderwidth=0)
+        #     etape7 = PhotoImage(file="img/etape9.png")
+        #     label_etape7 = Label(self.window, image=etape7, borderwidth=0)
+        #     etape8 = PhotoImage(file="img/etape10.png")
+        #     label_etape8 = Label(self.window, image=etape8, borderwidth=0)
+        #     etape9 = PhotoImage(file="img/etape11.png")
+        #     label_etape9 = Label(self.window, image=etape9, borderwidth=0)
+        #     perdu = PhotoImage(file="img/hor-removebg-preview.png")
+        #     label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
+        #     gagne = PhotoImage(file="img/victory.png")
+        #     label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
+        #     label_etape = [label_etape1, label_etape2, label_etape3, label_etape4, label_etape5, label_etape6,
+        #                    label_etape7, label_etape8, label_etape9, label_perdu,
+        #                    label_gagne]
+        # if diff == 2:
+        #     etape1 = PhotoImage(file="img/etape5.png")
+        #     label_etape1 = Label(self.window, image=etape1, borderwidth=0)
+        #     etape2 = PhotoImage(file="img/etape6.png")
+        #     label_etape2 = Label(self.window, image=etape2, borderwidth=0)
+        #     etape3 = PhotoImage(file="img/etape7.png")
+        #     label_etape3 = Label(self.window, image=etape3, borderwidth=0)
+        #     etape4 = PhotoImage(file="img/etape8.png")
+        #     label_etape4 = Label(self.window, image=etape4, borderwidth=0)
+        #     etape5 = PhotoImage(file="img/etape9.png")
+        #     label_etape5 = Label(self.window, image=etape5, borderwidth=0)
+        #     etape6 = PhotoImage(file="img/etape10.png")
+        #     label_etape6 = Label(self.window, image=etape6, borderwidth=0)
+        #     etape7 = PhotoImage(file="img/etape11.png")
+        #     label_etape7 = Label(self.window, image=etape7, borderwidth=0)
+        #     perdu = PhotoImage(file="img/hor-removebg-preview.png")
+        #     label_perdu = Label(self.window, image=perdu, borderwidth=0, bg="white")
+        #     gagne = PhotoImage(file="img/victory.png")
+        #     label_gagne = Label(self.window, image=gagne, borderwidth=0, bg="white")
+        #     label_etape = [label_etape1, label_etape2, label_etape3, label_etape4, label_etape5, label_etape6,
+        #                    label_etape7, label_perdu,
+        #                    label_gagne]
 
         # Menu Page de jeu
         pendumenu = Menu(self.window)
@@ -150,13 +155,11 @@ class Game:
         frame_timer.place(x=448, y=115, width=130, height=68)
 
         joueurliste = []
-        ET.dump(rootjoueur)
         for joueur_item in rootjoueur.findall('./player'):
             joueur_detail = {}
             for detail in joueur_item:
                 joueur_detail[detail.tag] = detail.text.encode('UTF-8')
             joueurliste.append(joueur_detail)
-        print(joueurliste)
 
         # AFFICHAGE PSEUDO
         label_pseudo = Label(frame_topbanner, text="", font=("Arial", 30), bg="#ccccff", fg="black")
@@ -166,8 +169,7 @@ class Game:
 
         # AFFICHAGE DIFFICULTE
         label_difficulte = Label(frame_topbanner, text="", font=("Arial", 10), bg="#ccccff", fg="black")
-        modeJeu = self.joueur.difficulte
-        label_difficulte.config(text="Difficulté : " + modeJeu)
+        label_difficulte.config(text="Difficulté : " + self.hangman.getdifficultetext())
         label_difficulte.pack()
 
         # LABEL TIMER
@@ -187,10 +189,10 @@ class Game:
                                                font=("Courrier", 15), bg="white")
                     label_perduhorloge.place(x=640, y=180)
                     end = True
-                    lbl["text"] = "".join(secret)
+                    lbl["text"] = "".join(self.hangman.motadecouvrir)
                     annonce["text"] = "Perdu !"
                     label_etape[11].place(x=640, y=230)
-                    scorefinal()
+                    affichescorefinal()
                     frame_clavier1.place_forget()
                     frame_clavier2.place_forget()
                     creerjoueurXML()
@@ -199,7 +201,6 @@ class Game:
             frame_clavier1.place(x=80, y=570, width=900, height=70)
             frame_clavier2.place(x=196, y=650, width=800, height=70)
             frame_mot.place(x=23, y=160, width=390, height=330)
-            frame_dessin.place(x=610, y=160, width=390, height=330)
 
         # BOUTTON TIMER
         btn_timer = Button(self.window, text="Commencer", command=two_funcs(decompte, lancerjeu))
@@ -217,26 +218,26 @@ class Game:
 
         # FONCTION GAGNE PERDU
         def score(lettre):
-            global cpt_perdu, end
-            if lettre not in secret:
-                cpt_perdu += 1
-                label_etape[cpt_perdu - 1].place(x=610, y=210)
-                if cpt_perdu == limite_perdu:
+            global end
+            if lettre not in self.hangman.motadecouvrir:
+                self.hangman.nombresessai += 1
+                label_etape[self.hangman.nombresessai - 1].place(x=610, y=210)
+                if self.hangman.nombresessai == self.hangman.nombressaimax:
                     frame_clavier1.place_forget()
                     frame_clavier2.place_forget()
                     label_etape[11].place(x=670, y=210)
-                    lbl["text"] = "".join(secret)
+                    lbl["text"] = "".join(self.hangman.motadecouvrir)
                     annonce["text"] = "Perdu !"
                     end = True
-                    scorefinal()
+                    affichescorefinal()
                     creerjoueurXML()
-            elif mot_en_progres == list(secret):
+            elif mot_en_progres == list(self.hangman.motadecouvrir):
                 annonce["text"] = "Gagné !"
                 label_etape[12].place(x=670, y=210)
                 end = True
                 frame_clavier1.place_forget()
                 frame_clavier2.place_forget()
-                scorefinal()
+                affichescorefinal()
                 creerjoueurXML()
             return cpt_perdu
 
@@ -247,34 +248,24 @@ class Game:
             mon_btn = event.widget
             lettre = mon_btn["text"]
             mon_btn["state"] = DISABLED
-            maj_mot_en_progres(mot_en_progres, lettre, secret)
+            maj_mot_en_progres(mot_en_progres, lettre, self.hangman.motadecouvrir)
             lbl["text"] = " ".join(mot_en_progres)
             score(lettre)
 
-        # GENERATION MOT
-        L = []
-        for x in rootmot.findall('liste'):
-            nom = x.find('mot').text
-            L.append(nom)
-        secret = random.choice(L)
-        longsecret = len(secret)
-        mot_en_progres = list("_" * longsecret)
+        # Création tiret vide selon longueur mot
+        mot_en_progres = list("_" * self.hangman.longueurmot)
         stars = " ".join(mot_en_progres)
 
         # FONCTION SCORE FINAL
-        def scorefinal():
+        def affichescorefinal():
             global end
             if end:
-                pointnbcoup = limite_perdu - cpt_perdu
-                pointlenmot = longsecret
-                calculscorefinal = pointnbcoup + pointlenmot + pointbonusdiff
                 labelscorefinal1 = Label(self.window, text="Votre score final est de :", font=("Times 15 bold", 30),
                                          bg="#ccccff", fg="black")
                 labelscorefinal1.place(x=240, y=620)
-                labelscorefinal2 = Label(self.window, text=calculscorefinal, font=("Times 15 bold", 30),
+                labelscorefinal2 = Label(self.window, text=self.hangman.calc_score(), font=("Times 15 bold", 30),
                                          bg="#ccccff", fg="black")
                 labelscorefinal2.place(x=680, y=620)
-                return calculscorefinal
 
         # AFFICHAGE DES LETTRES
         lbl = Label(frame_mot, text=stars, font=("Times 15 bold", 30), background="white", fg="black")
@@ -300,8 +291,8 @@ class Game:
 
         def creerjoueurXML():
             self.joueur.pseudo = pseudoJeu
-            self.joueur.difficulte = modeJeu
-            self.joueur.score = scorefinal()
+            self.joueur.difficulte = self.hangman.getdifficultetext()
+            self.joueur.score = self.hangman.calc_score()
             elementplayer = ET.Element('player')
             for key, val in self.joueur.__dict__.items():
                 child = ET.Element(key)

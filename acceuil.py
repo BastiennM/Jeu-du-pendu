@@ -78,7 +78,7 @@ class Acceuil:
         listedifficulte.pack()
 
         def selectdiff():
-            value = listedifficulte.get()
+            value = listedifficulte.current()
             return value
 
         def selectpseudo():
