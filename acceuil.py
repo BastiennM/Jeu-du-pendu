@@ -58,6 +58,7 @@ class Acceuil:
                 acceuil_buttonplay['state'] = 'normal'
             else:
                 acceuil_buttonplay['state'] = 'disabled'
+
         # ZONE DE SAISIE PSEDUO
 
         pseudoEntry = Entry(frame_acceuilpseudo, width=50, background=None)
@@ -90,14 +91,16 @@ class Acceuil:
             listejoueur[len(listejoueur) - 1].append(nom)
             listejoueur[len(listejoueur) - 1].append(diff)
             listejoueur[len(listejoueur) - 1].append(score)
+        print(listejoueur)
 
         def creerjoueur():
             global cptnewjoueur
             listejoueur.append([])
             listejoueur[len(listejoueur) - 1].append(selectpseudo())
             listejoueur[len(listejoueur) - 1].append(selectdiff())
-            listejoueur[len(listejoueur) - 1].append(0)
+            listejoueur[len(listejoueur) - 1].append("0")
             new_field = ET.Element("PLAYER")
+            print(listejoueur)
             for item in listejoueur:
                 for i in range(0, 1):
                     groupe = ET.SubElement(new_field, "player")
@@ -109,7 +112,8 @@ class Acceuil:
             tree1.write('joueur.xml')
 
         # BUTTONS
-        acceuil_buttonplay = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer",state='disabled', width=225, font=("Arial", 15),
+        acceuil_buttonplay = Button(frame_acceuilbuttonplay, borderwidth=0, text="Jouer", state='disabled', width=225,
+                                    font=("Arial", 15),
                                     bg="white",
                                     fg="black", command=two_funcs(creerjoueur, self.opengamewindow))
         acceuil_buttonplay.pack()
@@ -159,6 +163,10 @@ class Acceuil:
     def opengestionmots(self):
         self.closeWindow()
         opengestionmot()
+
+    def opentrans(self):
+        self.closeWindow()
+        opentrans()
 
 
 main = Acceuil()

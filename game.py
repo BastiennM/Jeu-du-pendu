@@ -101,12 +101,12 @@ def opengame():
                 listejoueur[len(listejoueur) - 1].append(nom)
                 listejoueur[len(listejoueur) - 1].append(diff)
                 listejoueur[len(listejoueur) - 1].append(score)
-                print(listejoueur)
+            print(listejoueur)
 
             # AFFICHAGE PSEUDO
             # label_pseudo = Label(frame_topbanner, text="", font=("Arial", 30), bg="#ccccff", fg="black")
             pseudoJeu = listejoueur[len(listejoueur) - 1][0]
-            print("listepourjeu", pseudoJeu)
+            # print("listepourjeu", pseudoJeu)
             # label_pseudo.config(text="A toi de jouer " + pseudoJeu + " !")
             # label_pseudo.pack()
 
@@ -199,7 +199,7 @@ def opengame():
             for x in rootmot.findall('liste'):
                 nom = x.find('mot').text
                 L.append(nom)
-                print(nom)
+                # print(nom)
             secret = random.choice(L)
             longsecret = len(secret)
             mot_en_progres = list("_" * longsecret)
@@ -248,5 +248,5 @@ def opengame():
         def closeWindow(self):
             self.window.destroy()
 
-    main = Game()
-    main.openWindow()
+    maingame = Game()
+    maingame.openWindow()

@@ -1,5 +1,4 @@
 from tkinter import *
-from aide import openaide
 import xml.etree.ElementTree as ET
 
 treejoueur = ET.parse('joueur.xml')
@@ -60,7 +59,7 @@ def opentop10():
             print(len(listejoueur))
             for item in listejoueur:
                 global cptinsert
-                listbox.insert(0, listejoueur[cptinsert])
+                listbox.insert(0, (listejoueur[cptinsert]))
                 cptinsert = cptinsert + 1
 
     main = top10()
