@@ -17,10 +17,11 @@ class Gestionmot:
 
     def openWindow(self):
         self.window.title("Gestion Mot")
-        self.window.geometry("1080x720")
+        self.window.geometry("1024x768")
         self.window.minsize(480, 360)
         self.window.iconbitmap("img/logo.ico")
-        self.window.config(background='#f9791e')
+        self.window.configure(background='#ccccff')
+
 
         # Menu Page de jeu
         pendumenu = Menu(self.window)
@@ -32,6 +33,9 @@ class Gestionmot:
         pendumenu.add_cascade(label="Menu", menu=first_menu)
         self.window.config(menu=pendumenu)
 
+        label_titre = Label(self.window, text='Gestion des mots',font=("Courrier", 40), bg="#ccccff", fg="black")
+        label_titre.pack(pady=(100,0))
+
         # CREATION LISTE MOT
         L = []
         for x in myroot.findall('mot'):
@@ -41,15 +45,13 @@ class Gestionmot:
         # create frame and scrollbar
         frame_scrollist = Frame(self.window)
         scrollbar = Scrollbar(frame_scrollist, orient=VERTICAL)
-        listbox = Listbox(frame_scrollist, width=50, yscrollcommand=scrollbar.set)
+        listbox = Listbox(frame_scrollist, width=50, yscrollcommand=scrollbar.set,background=None)
 
         # CONFIGURE SCROLLBAR
         scrollbar.config(command=listbox.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
-        frame_scrollist.pack()
-        listbox.pack(pady=15)
-
-
+        frame_scrollist.pack(pady=(150,0))
+        listbox.pack()
 
         for item in L:
             listbox.insert(END, item)
@@ -79,12 +81,12 @@ class Gestionmot:
 
         # NOUVEAU MOT
         newword = Entry(self.window,width=50, background=None)
-        newword.pack()
-        btnadd = Button(self.window, text="Add", command=add)
-        btnadd.pack()
+        newword.pack(pady=(20,0))
+        btnadd = Button(self.window, text="Ajouter", command=add)
+        btnadd.pack(pady=(15,0))
         # DELETE
-        btndelete = Button(self.window, text="Delete", command=delete)
-        btndelete.pack()
+        btndelete = Button(self.window, text="Supprimer", command=delete)
+        btndelete.pack(pady=(15,0))
 
     def opentop10window(self):
         self.window.destroy()

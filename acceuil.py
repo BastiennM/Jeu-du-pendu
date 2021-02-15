@@ -6,7 +6,6 @@ from tkinter import *
 from tkinter import ttk
 import xml.etree.ElementTree as ET
 
-
 tree = ET.parse('xml/joueur.xml')
 myroot = tree.getroot()
 cptnewjoueur = 0
@@ -113,7 +112,7 @@ class Acceuil:
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttonaide, borderwidth=0, text="Aide", width=225, font=("Arial", 15),
                                 bg="white",
-                                fg="black")
+                                fg="black",command=self.openaidewindow)
         acceuil_button.pack()
         acceuil_button = Button(frame_acceuilbuttonquitter, borderwidth=0, text="Quitter", width=225,
                                 font=("Arial", 15),

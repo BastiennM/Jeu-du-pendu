@@ -22,10 +22,9 @@ class Aide:
 
     def openWindow(self):
         self.window.title("Aide")
-        self.window.geometry("1080x720")
+        self.window.geometry("1024x768")
         self.window.minsize(480, 360)
         self.window.iconbitmap("img/logo.ico")
-        self.window.config(background='#f9791e')
 
         # Menu Page aide
         pendumenu = Menu(self.window)
@@ -37,6 +36,10 @@ class Aide:
         first_menu.add_command(label="Gestion des mots", command=self.opengestiondesmots)
         pendumenu.add_cascade(label="Menu", menu=first_menu)
         self.window.config(menu=pendumenu)
+
+        # CREATION FRAME
+        frame_aide = Frame(self.window,background='#ccccff')
+        frame_aide.place(x=25, y=20, width=980, height=710  )
 
     def openacceuil(self):
         self.window.destroy()

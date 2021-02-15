@@ -27,10 +27,11 @@ class Top10:
 
     def openWindow(self):
         self.window.title("Top 10")
-        self.window.geometry("1080x720")
+        self.window.geometry("1024x768")
         self.window.minsize(480, 360)
         self.window.iconbitmap("img/logo.ico")
-        self.window.config(background='#f9791e')
+        self.window.config(background='#ccccff')
+
 
         # Menu Page de jeu
         pendumenu = Menu(self.window)
@@ -41,6 +42,9 @@ class Top10:
         first_menu.add_command(label="Gestion des mots", command=self.opengestionmots)
         pendumenu.add_cascade(label="Menu", menu=first_menu)
         self.window.config(menu=pendumenu)
+
+        label_titre = Label(self.window, text='Top 10', font=("Courrier", 40), bg="#ccccff", fg="black")
+        label_titre.pack(pady=(100,0))
 
         # Remplissage de la liste avec toute les infos joueurs
         joueurliste = []
@@ -59,30 +63,15 @@ class Top10:
         listediffdifficile = list(filter(lambda x: x['difficulte'] == b'Difficile', joueurliste))
         joueurlistetriedifficile = sorted(listediffdifficile, reverse=True, key=lambda i: i['score'])
 
-        # for x in rootjoueur.findall('player'):
-        #     nom = x.find('joueur').text
-        #     diff = x.find("difficulte").text
-        #     score = x.find("score").text
-        #     score = int(score)
-        #     listejoueur.append([])
-        #     listejoueur[len(listejoueur) - 1].append(nom)
-        #     listejoueur[len(listejoueur) - 1].append(diff)
-        #     listejoueur[len(listejoueur) - 1].append(score)
-        #
-        # def Sort(sub_li):
-        #     sub_li.sort(key=lambda x: x[2])
-        #     return sub_li
-
         frametop10 = Frame(self.window)
-        frametop10.pack(pady=20)
+        frametop10.pack(pady=150)
         treescroll = Scrollbar(frametop10)
         treescroll.pack(side=RIGHT, fill=Y)
 
+
+
         # DEFINIR LE TABLEAU
         Tableau = ttk.Treeview(frametop10, yscrollcommand=treescroll.set)
-        # vsb = Scrollbar(self.window, orient="vertical", command=Tableau.yview)
-        # vsb.pack(side='right', fill='y')
-        # Tableau.configure(yscrollcommand=vsb.set)
 
         # CONFIGURE SCROLLBAR
         treescroll.config(command=Tableau.yview)
