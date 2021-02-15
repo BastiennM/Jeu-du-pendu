@@ -1,7 +1,6 @@
 from tkinter import *
 import xml.etree.ElementTree as ET
 from hangman import HangMan
-import dumper
 import acceuil
 import top10
 import gestiondesmots
@@ -47,14 +46,12 @@ class Game:
         label_jeu = Label(self.window, image=bg_jeu)
         label_jeu.place(x=0, y=0, relwidth=1, relheight=1)
 
-        # FONCTION POINT BONUS / LIMITE DE COUP / ET AFFICHAGE SELON DIFFICULTE
+        # FONCTION AFFICHAGE SELON DIFFICULTE
         label_etape = []
         etape_img = []
         etape_label = []
         for i in range(0, self.hangman.nombressaimax - 1):
-            dumper.dump(i)
             etape_img.append(PhotoImage(file="img/etape" + str(i + 1) + ".png"))
-            dumper.dump(etape_img[i])
             etape_label.append(Label(self.window, image=etape_img[i], borderwidth=0))
             label_etape.append(etape_label[i])
 
@@ -175,7 +172,6 @@ class Game:
                 frame_clavier1.place_forget()
                 frame_clavier2.place_forget()
                 affichescorefinal()
-                creerjoueurXML()
                 creerjoueurXML()
             return cpt_perdu
 

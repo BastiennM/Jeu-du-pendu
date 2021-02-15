@@ -49,7 +49,7 @@ class Gestionmot:
         # CONFIGURE SCROLLBAR
         scrollbar.config(command=listbox.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
-        frame_scrollist.pack(pady=(150, 0))
+        frame_scrollist.pack(pady=(100, 0))
         listbox.pack()
 
         for item in L:

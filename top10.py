@@ -64,7 +64,7 @@ class Top10:
         joueurlistetriedifficile = sorted(listediffdifficile, reverse=True, key=lambda i: i['score'])
 
         frametop10 = Frame(self.window)
-        frametop10.pack(pady=150)
+        frametop10.pack(pady=100)
         treescroll = Scrollbar(frametop10)
         treescroll.pack(side=RIGHT, fill=Y)
 
