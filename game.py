@@ -176,6 +176,7 @@ class Game:
                 frame_clavier2.place_forget()
                 affichescorefinal()
                 creerjoueurXML()
+                creerjoueurXML()
             return cpt_perdu
 
         # FONCTIONS RECUP LETTRE

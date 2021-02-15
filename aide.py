@@ -37,9 +37,11 @@ class Aide:
         pendumenu.add_cascade(label="Menu", menu=first_menu)
         self.window.config(menu=pendumenu)
 
-        # CREATION FRAME
-        frame_aide = Frame(self.window,background='#ccccff')
-        frame_aide.place(x=25, y=20, width=980, height=710  )
+        # CREATION ET PLACE FRAME
+        frame_aide = Frame(self.window, background='#ccccff')
+        frame_aide.place(x=0, y=0, width=1024, height=768)
+        frame_Tt = Frame(self.window, background='#ccccff')
+        frame_aide.place(x=0, y=0, width=1024, height=768)
 
     def openacceuil(self):
         self.window.destroy()
