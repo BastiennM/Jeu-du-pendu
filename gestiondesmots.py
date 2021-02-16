@@ -78,6 +78,7 @@ class Gestionmot:
                 ET.SubElement(new_field, "mot").text = item
             tree1 = ET.ElementTree(new_field)
             tree1.write('xml/mot.xml', encoding='utf-8', xml_declaration=True)
+            newword.delete(0, END)
 
         # NOUVEAU MOT
         newword = Entry(self.window, width=50, background=None)
