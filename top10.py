@@ -54,11 +54,11 @@ class Top10:
                 joueur_detail[detail.tag] = detail.text.encode('UTF-8')
             joueurliste.append(joueur_detail)
 
-        listediffnormal = list(filter(lambda x: x['difficulte'] == b'Normal', joueurliste))
-        joueurlistetrienormal = sorted(listediffnormal, reverse=True, key=lambda i: i['score'])
-
         listedifffacile = list(filter(lambda x: x['difficulte'] == b'Facile', joueurliste))
         joueurlistetriefacile = sorted(listedifffacile, reverse=False, key=lambda i: i['score'])
+
+        listediffnormal = list(filter(lambda x: x['difficulte'] == b'Normal', joueurliste))
+        joueurlistetrienormal = sorted(listediffnormal, reverse=True, key=lambda i: i['score'])
 
         listediffdifficile = list(filter(lambda x: x['difficulte'] == b'Difficile', joueurliste))
         joueurlistetriedifficile = sorted(listediffdifficile, reverse=True, key=lambda i: i['score'])
